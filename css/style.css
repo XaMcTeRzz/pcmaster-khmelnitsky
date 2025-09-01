@@ -327,6 +327,11 @@ body {
     border-radius: 20px;
 }
 
+/* Mobile services preview - hidden by default */
+.mobile-services-preview {
+    display: none;
+}
+
 
 
 /* Services Section */
@@ -739,153 +744,292 @@ body {
         margin-right: 0.3rem;
     }
     
-    /* Mobile phone section */
+    /* Mobile phone section - emphasized for quick access */
     .nav-phone {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
+        bottom: 15px;
+        right: 15px;
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         align-items: flex-end;
         z-index: 1001;
     }
     
     .phone-link {
-        padding: 12px 16px;
-        font-size: 0.9rem;
-        border-radius: 25px;
-        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        padding: 15px 20px;
+        font-size: 1rem;
+        font-weight: 700;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         color: white;
-        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        animation: pulse 2s infinite;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        50% {
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+            transform: translateY(-1px);
+        }
+        100% {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
     }
     
     .phone-link:hover {
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+        transform: scale(1.05);
     }
     
     .social-links {
-        gap: 8px;
+        gap: 10px;
         justify-content: flex-end;
     }
     
     .social-link {
-        width: 45px;
-        height: 35px;
-        border-radius: 22.5px;
-        font-size: 1.1rem;
+        width: 50px;
+        height: 40px;
+        border-radius: 25px;
+        font-size: 1.2rem;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
     
+    /* Simplified hero section for mobile */
     .hero {
-        padding: 120px 0 60px;
+        padding: 100px 0 40px;
     }
     
     .hero .container {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
         text-align: center;
     }
     
     .hero-title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         line-height: 1.3;
+        margin-bottom: 1rem;
     }
     
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.95rem;
         margin-bottom: 1.5rem;
+        line-height: 1.5;
     }
     
     .section-title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
     }
     
+    /* Simplified sections spacing */
     .services,
     .about,
     .contact,
-    .pricing,
-    .seo-content {
-        padding: 40px 0;
+    .pricing {
+        padding: 30px 0;
     }
     
-    /* Mobile Services Grid Hero */
+    .seo-content {
+        padding: 20px 0;
+    }
+
+    /* Simplified Mobile Services Grid Hero - remove clutter */
     .services-grid-hero {
-        width: 300px;
-        height: 400px;
+        display: none; /* Hide complex grid on mobile */
+    }
+    
+    /* Show simple mobile services preview */
+    .mobile-services-preview {
+        display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
         gap: 10px;
-        padding: 15px;
+        max-width: 280px;
         margin: 0 auto;
     }
     
-    .service-block {
-        padding: 15px 10px;
-        height: auto;
-        min-height: 120px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    /* Add simple mobile services preview */
+    .hero-image {
         text-align: center;
+        margin-top: 1rem;
     }
     
-    .block-icon {
-        font-size: 2rem;
+    .mobile-services-preview {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .mobile-service-item {
+        background: rgba(59, 130, 246, 0.1);
+        padding: 15px 10px;
+        border-radius: 12px;
+        text-align: center;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    
+    .mobile-service-item:hover {
+        border-color: #3b82f6;
+        background: rgba(59, 130, 246, 0.15);
+    }
+    
+    .mobile-service-item i {
+        font-size: 1.8rem;
+        color: #3b82f6;
         margin-bottom: 8px;
+        display: block;
     }
     
-    .block-text h3 {
-        font-size: 0.8rem;
-        margin-bottom: 2px;
+    .mobile-service-item span {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #1e293b;
+        display: block;
     }
     
-    .block-text h4 {
-        font-size: 0.7rem;
-    }
-    
+    /* Simplified services grid for mobile */
     .services-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem;
     }
     
     .service-card {
-        padding: 1.5rem;
+        padding: 1.2rem;
+        text-align: center;
     }
     
+    .service-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .service-card p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+    }
+    
+    /* Hide service features on mobile for simplicity */
+    .service-features {
+        display: none;
+    }
+    
+    /* Simplified pricing for mobile */
     .pricing-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
         gap: 1rem;
     }
     
     .price-card {
-        padding: 1.5rem 1rem;
+        padding: 1.2rem;
+        text-align: center;
     }
     
+    .price-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .price {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #10b981;
+        margin-bottom: 0.5rem;
+    }
+    
+    .price-card p {
+        font-size: 0.85rem;
+        color: #64748b;
+    }
+    
+    /* Simplified buttons for mobile */
     .hero-buttons {
         justify-content: center;
-        gap: 0.8rem;
+        gap: 1rem;
+        flex-direction: column;
+        align-items: center;
     }
     
     .btn {
-        padding: 12px 20px;
-        font-size: 0.9rem;
+        padding: 15px 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
     }
     
-    /* Mobile contact form */
+    .btn-primary {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        order: 1;
+    }
+    
+    .btn-secondary {
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        order: 2;
+    }
+    
+    /* Simplified contact section for mobile */
     .contact-content {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
     }
     
     .contact-form {
-        padding: 1.5rem;
+        padding: 1.2rem;
+    }
+    
+    .contact-form h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        text-align: center;
     }
     
     .contact-form input,
     .contact-form select,
     .contact-form textarea {
         font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px;
+        margin-bottom: 1rem;
+    }
+    
+    /* Simplified contact info */
+    .contact-info {
+        text-align: center;
+    }
+    
+    .contact-item {
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+        background: rgba(59, 130, 246, 0.05);
+        border-radius: 8px;
+        border-left: 4px solid #3b82f6;
+    }
+    
+    .contact-item i {
+        font-size: 1.2rem;
+        color: #3b82f6;
+        margin-right: 0.8rem;
+    }
+    
+    .contact-item h4 {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+        color: #1e293b;
+    }
+    
+    .contact-item p {
+        font-size: 0.9rem;
+        color: #64748b;
+        margin: 0;
     }
     
     /* Mobile about section */
@@ -911,28 +1055,9 @@ body {
         text-align: center;
     }
     
-    /* Mobile SEO content */
-    .seo-content-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .seo-content h2 {
-        font-size: 1.6rem;
-        line-height: 1.3;
-    }
-    
-    .seo-text h3, .seo-benefits h3 {
-        font-size: 1.3rem;
-    }
-    
-    .benefit-item {
-        align-items: flex-start;
-    }
-    
-    .benefit-item i {
-        margin-top: 2px;
-        font-size: 1.3rem;
+    /* Hide SEO section on mobile to reduce clutter */
+    .seo-content {
+        display: none;
     }
 }
 
