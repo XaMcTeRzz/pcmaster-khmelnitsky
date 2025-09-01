@@ -744,6 +744,11 @@ body {
         margin-right: 0.3rem;
     }
     
+    /* Hide desktop phone number on mobile */
+    .nav-phone .phone-link {
+        display: none;
+    }
+    
     /* Show floating contacts and mobile phone header on mobile */
     .mobile-floating-contacts,
     .mobile-phone-header {
