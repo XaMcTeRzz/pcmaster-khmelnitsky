@@ -744,8 +744,9 @@ body {
         margin-right: 0.3rem;
     }
     
-    /* Show floating contacts on mobile */
-    .mobile-floating-contacts {
+    /* Show floating contacts and mobile phone header on mobile */
+    .mobile-floating-contacts,
+    .mobile-phone-header {
         display: flex;
     }
     
@@ -853,9 +854,9 @@ body {
     
     /* Remove mobile phone bar - it was interfering with mobile UX */
     
-    /* Adjust hero section for mobile without phone bar */
+    /* Adjust hero section for mobile with phone header */
     .hero {
-        padding: 80px 0 40px;
+        padding: 130px 0 40px;
         background: #f8fafc;
     }
     
@@ -1314,6 +1315,31 @@ body {
         font-size: 1.2rem;
     }
     
+    /* Adjust mobile phone header for small screens */
+    .mobile-phone-header {
+        padding: 10px 15px;
+    }
+    
+    .mobile-phone-content {
+        font-size: 0.9rem;
+    }
+    
+    .mobile-phone-number {
+        font-size: 1rem;
+    }
+    
+    .mobile-social-icons {
+        gap: 10px;
+    }
+    
+    .mobile-viber,
+    .mobile-telegram {
+        width: 28px;
+        height: 28px;
+        border-radius: 14px;
+        font-size: 0.9rem;
+    }
+    
     .hero-buttons {
         flex-direction: column;
         align-items: center;
@@ -1562,8 +1588,89 @@ body {
 
 /* Mobile phone bar and floating contacts - hidden by default */
 .mobile-phone-bar,
-.mobile-floating-contacts {
+.mobile-floating-contacts,
+.mobile-phone-header {
     display: none;
+}
+
+/* Mobile Phone Header Bar - horizontal layout */
+.mobile-phone-header {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 12px 20px;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-phone-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.mobile-phone-content i.fa-phone {
+    font-size: 1.1rem;
+    margin-right: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.mobile-phone-number {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-phone-number:hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.mobile-social-icons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.mobile-viber,
+.mobile-telegram {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.mobile-viber {
+    background: rgba(102, 92, 172, 0.9);
+    color: white;
+}
+
+.mobile-viber:hover {
+    background: #665CAC;
+    transform: scale(1.1);
+}
+
+.mobile-telegram {
+    background: rgba(0, 136, 204, 0.9);
+    color: white;
+}
+
+.mobile-telegram:hover {
+    background: #0088cc;
+    transform: scale(1.1);
 }
 
 /* Phone in Navigation */
