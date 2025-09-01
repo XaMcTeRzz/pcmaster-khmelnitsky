@@ -56,7 +56,7 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Contact Form Handling
+// Contact Form Handling with Telegram Bot
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -80,15 +80,66 @@ if (contactForm) {
             return;
         }
         
-        // Simulate form submission
-        showNotification('Дякуємо! Ваша заявка відправлена. Ми зв\'яжемося з вами найближчим часом.', 'success');
+        // Send to Telegram
+        sendToTelegram(name, phone, service, message);
         
         // Reset form
         this.reset();
-        
-        // In real implementation, you would send data to your server
-        console.log('Form submitted:', { name, phone, service, message });
     });
+}
+
+// Telegram Bot Configuration
+const TELEGRAM_CONFIG = {
+    botToken: 'ВАШ_BOT_TOKEN', // Замените на ваш токен бота
+    chatId: 'ВАШ_CHAT_ID'      // Замените на ваш Chat ID
+};
+
+// Send message to Telegram
+async function sendToTelegram(name, phone, service, message) {
+    const serviceNames = {
+        'windows': 'Перестановка Windows',
+        'programs': 'Налаштування програм',
+        'repair': 'Ремонт комп\'ютера',
+        'virus': 'Видалення вірусів',
+        'network': 'Налаштування мережі',
+        'other': 'Інше'
+    };
+    
+    const serviceName = serviceNames[service] || 'Не вказано';
+    
+    const telegramMessage = `🔧 *Нова заявка PC-Master Хмельницький*\n\n` +
+        `👤 *Ім\'я:* ${name}\n` +
+        `📞 *Телефон:* ${phone}\n` +
+        `🛠 *Послуга:* ${serviceName}\n` +
+        `📝 *Опис:* ${message || 'Не вказано'}\n\n` +
+        `🌐 *Джерело:* Сайт PC-Master`;
+    
+    const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`;
+    
+    try {
+        showNotification('Відправляємо заявку...', 'info');
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CONFIG.chatId,
+                text: telegramMessage,
+                parse_mode: 'Markdown'
+            })
+        });
+        
+        if (response.ok) {
+            showNotification('✅ Дякуємо! Ваша заявка відправлена. Ми зв\'яжемося з вами найближчим часом.', 'success');
+        } else {
+            throw new Error('Помилка відправки');
+        }
+    } catch (error) {
+        console.error('Error sending to Telegram:', error);
+        showNotification('❌ Помилка відправки. Будь ласка, зателефонуйте: +38 (097) 609-73-10', 'error');
+    }
 }
 
 // Phone number validation
