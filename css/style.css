@@ -15,7 +15,7 @@ img, video {
     height: auto;
 }
 
-.container, .hero, .services, .about, .contact, .pricing, .seo-content, .footer {
+.container, .hero, .services, .about, .contact, .pricing, .footer {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
@@ -883,11 +883,6 @@ body {
         padding: 40px 0;
         background: white;
     }
-    
-    .seo-content {
-        padding: 20px 0;
-        background: #f8fafc;
-    }
 
     /* Simplified Mobile Services Grid Hero - remove clutter */
     .services-grid-hero {
@@ -1204,63 +1199,6 @@ body {
         text-align: center;
     }
     
-    /* Simplified SEO section for mobile */
-    .seo-content {
-        display: block;
-        padding: 30px 0;
-        background: #f8fafc;
-    }
-    
-    .seo-content h2 {
-        font-size: 1.4rem;
-        margin-bottom: 1.5rem;
-        color: #1e293b;
-        text-align: center;
-        line-height: 1.3;
-    }
-    
-    .seo-content-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .seo-text h3,
-    .seo-benefits h3 {
-        font-size: 1.2rem;
-        color: #3b82f6;
-        margin-bottom: 1rem;
-    }
-    
-    .seo-text p {
-        font-size: 0.9rem;
-        line-height: 1.5;
-        color: #64748b;
-        margin-bottom: 1rem;
-    }
-    
-    .benefit-item {
-        margin-bottom: 1rem;
-        align-items: flex-start;
-    }
-    
-    .benefit-item i {
-        font-size: 1.2rem;
-        margin-top: 3px;
-        margin-right: 12px;
-        color: #3b82f6;
-    }
-    
-    .benefit-item h4 {
-        font-size: 0.95rem;
-        margin-bottom: 3px;
-        color: #1e293b;
-    }
-    
-    .benefit-item p {
-        font-size: 0.85rem;
-        line-height: 1.4;
-        color: #64748b;
-    }
 }
 
 @media (max-width: 480px) {
@@ -1656,136 +1594,15 @@ a.service-block:hover {
     color: inherit;
 }
 
-/* SEO Content Section */
-.seo-content {
-    background: #f8fafc;
-    padding: 60px 0;
-}
 
-.seo-content-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-}
 
-.seo-content h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    color: #1e293b;
-    font-size: 2.2rem;
-    font-weight: 700;
-}
 
-.seo-content-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-bottom: 40px;
-}
 
-.seo-text h3, .seo-benefits h3 {
-    color: #3b82f6;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
 
-.seo-text p {
-    margin-bottom: 20px;
-    line-height: 1.6;
-    color: #4a5568;
-}
 
-.seo-text h4 {
-    color: #1e293b;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-    font-weight: 600;
-}
 
-.seo-text ul {
-    list-style: none;
-    padding: 0;
-}
 
-.seo-text li {
-    margin-bottom: 10px;
-    padding-left: 20px;
-    position: relative;
-    color: #4a5568;
-}
 
-.seo-text li i {
-    position: absolute;
-    left: 0;
-    top: 3px;
-    color: #10b981;
-}
 
-.benefit-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
 
-.benefit-item i {
-    color: #3b82f6;
-    font-size: 1.5rem;
-    margin-right: 15px;
-    flex-shrink: 0;
-}
 
-.benefit-item h4 {
-    margin: 0 0 5px 0;
-    color: #1e293b;
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.benefit-item p {
-    margin: 0;
-    color: #64748b;
-    font-size: 0.95rem;
-}
-
-.seo-locations {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.seo-locations h3 {
-    color: #1e293b;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.seo-locations p {
-    color: #64748b;
-    line-height: 1.6;
-    max-width: 800px;
-    margin: 0 auto;
-    font-size: 1rem;
-}
-
-@media (max-width: 768px) {
-    .seo-content-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .seo-content h2 {
-        font-size: 1.8rem;
-    }
-    
-    .seo-text h3, .seo-benefits h3 {
-        font-size: 1.3rem;
-    }
-    
-    .benefit-item {
-        align-items: flex-start;
-    }
-    
-    .benefit-item i {
-        margin-top: 2px;
-    }
-}
