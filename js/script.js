@@ -90,8 +90,8 @@ if (contactForm) {
 
 // Telegram Bot Configuration
 const TELEGRAM_CONFIG = {
-    botToken: 'ВАШ_BOT_TOKEN', // Замените на ваш токен бота
-    chatId: 'ВАШ_CHAT_ID'      // Замените на ваш Chat ID
+    botToken: '8256319983:AAGZKs_9Nqw2Kuep3HauUsSWpps5y7iGAcs',
+    chatId: '542791657'
 };
 
 // Send message to Telegram
