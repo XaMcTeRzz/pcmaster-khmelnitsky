@@ -1322,7 +1322,7 @@ body {
     
     .mobile-phone-content {
         font-size: 0.9rem;
-        padding-left: 3cm;
+        padding-left: 2cm;
     }
     
     .mobile-social-icons {
@@ -1610,7 +1610,7 @@ body {
     justify-content: flex-start;
     font-size: 1rem;
     font-weight: 600;
-    padding-left: 3cm;
+    padding-left: 2cm;
 }
 
 .mobile-social-icons {
