@@ -749,7 +749,7 @@ body {
         display: flex;
     }
     
-    /* Floating mobile contact buttons */
+    /* Floating mobile contact buttons - improved design */
     .mobile-floating-contacts {
         position: fixed;
         bottom: 20px;
@@ -757,51 +757,72 @@ body {
         z-index: 1001;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 15px;
         align-items: flex-end;
     }
     
     .floating-phone-btn {
         background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         color: white;
-        padding: 15px 20px;
-        border-radius: 30px;
+        padding: 16px 24px;
+        border-radius: 50px;
         text-decoration: none;
-        font-size: 1rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        animation: pulse 2s infinite;
+        font-size: 0.95rem;
+        font-weight: 600;
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.35);
         display: flex;
         align-items: center;
-        gap: 8px;
-        transition: all 0.3s ease;
+        gap: 10px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        min-width: 160px;
+        justify-content: center;
+        transform: translateY(0);
     }
     
     .floating-phone-btn:hover {
         background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-        transform: scale(1.05);
-        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(16, 185, 129, 0.45);
+    }
+    
+    .floating-phone-btn:active {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+    }
+    
+    .floating-phone-btn i {
+        font-size: 1.1rem;
+        animation: gentle-pulse 3s infinite;
+    }
+    
+    @keyframes gentle-pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
     }
     
     .floating-social-links {
         display: flex;
-        gap: 10px;
+        gap: 12px;
         justify-content: flex-end;
     }
     
     .floating-social-link {
-        width: 50px;
-        height: 40px;
-        border-radius: 25px;
-        font-size: 1.2rem;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        width: 56px;
+        height: 56px;
+        border-radius: 28px;
+        font-size: 1.3rem;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(0);
     }
     
     .floating-viber-link {
@@ -811,8 +832,8 @@ body {
     
     .floating-viber-link:hover {
         background: linear-gradient(135deg, #7D4698 0%, #665CAC 100%);
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 0 8px 20px rgba(125, 70, 152, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(125, 70, 152, 0.35);
     }
     
     .floating-telegram-link {
@@ -822,8 +843,12 @@ body {
     
     .floating-telegram-link:hover {
         background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%);
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 0 8px 20px rgba(34, 158, 217, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(34, 158, 217, 0.35);
+    }
+    
+    .floating-social-link:active {
+        transform: translateY(-1px);
     }
     
     /* Simplified hero section for mobile */
@@ -1261,23 +1286,25 @@ body {
     .mobile-floating-contacts {
         bottom: 15px;
         right: 15px;
-        gap: 10px;
+        gap: 12px;
     }
     
     .floating-phone-btn {
-        padding: 12px 16px;
+        padding: 14px 20px;
         font-size: 0.9rem;
+        min-width: 140px;
+        border-radius: 40px;
     }
     
     .floating-phone-btn span {
-        display: none; /* Hide text on very small screens */
+        font-size: 0.85rem;
     }
     
     .floating-social-link {
-        width: 45px;
-        height: 35px;
-        border-radius: 22px;
-        font-size: 1.1rem;
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        font-size: 1.2rem;
     }
     
     .hero-buttons {
@@ -1502,11 +1529,27 @@ body {
         font-size: 0.75rem;
     }
     
-    .social-link {
-        width: 35px;
-        height: 25px;
-        border-radius: 17.5px;
-        font-size: 0.9rem;
+    .floating-social-link {
+        width: 45px;
+        height: 45px;
+        border-radius: 22px;
+        font-size: 1.1rem;
+    }
+    
+    .floating-phone-btn {
+        padding: 12px 16px;
+        font-size: 0.85rem;
+        min-width: 120px;
+    }
+    
+    .floating-phone-btn span {
+        font-size: 0.8rem;
+    }
+    
+    .mobile-floating-contacts {
+        bottom: 12px;
+        right: 12px;
+        gap: 10px;
     }
 }
 
