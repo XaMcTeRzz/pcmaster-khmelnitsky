@@ -5,8 +5,26 @@
     box-sizing: border-box;
 }
 
+/* Mobile optimization additions */
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+.container, .hero, .services, .about, .contact, .pricing, .seo-content, .footer {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Global mobile optimizations */
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -14,12 +32,17 @@ body {
     line-height: 1.6;
     color: #2d3748;
     background-color: #f1f5f9;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Header Styles */
@@ -683,6 +706,7 @@ body {
         transition: 0.3s;
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
         padding: 2rem 0;
+        margin-left: 0;
     }
 
     .nav-menu.active {
@@ -705,115 +729,210 @@ body {
         transform: translateY(-8px) rotate(-45deg);
     }
     
+    /* Mobile navigation brand */
+    .nav-brand {
+        font-size: 1.2rem;
+    }
+    
+    .nav-brand i {
+        font-size: 1.5rem;
+        margin-right: 0.3rem;
+    }
+    
     /* Mobile phone section */
     .nav-phone {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
         flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
+        gap: 10px;
+        align-items: flex-end;
+        z-index: 1001;
     }
     
     .phone-link {
-        padding: 6px 12px;
+        padding: 12px 16px;
         font-size: 0.9rem;
+        border-radius: 25px;
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    
+    .phone-link:hover {
+        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
     }
     
     .social-links {
-        gap: 0.3rem;
+        gap: 8px;
+        justify-content: flex-end;
     }
     
     .social-link {
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
+        width: 45px;
+        height: 35px;
+        border-radius: 22.5px;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
     
     .hero {
-        padding: 100px 0 60px;
+        padding: 120px 0 60px;
+    }
+    
+    .hero .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
     }
     
     .hero-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        line-height: 1.3;
     }
     
     .hero-subtitle {
         font-size: 1rem;
+        margin-bottom: 1.5rem;
     }
     
     .section-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
     
     .services,
     .about,
     .contact,
-    .pricing {
-        padding: 60px 0;
+    .pricing,
+    .seo-content {
+        padding: 40px 0;
     }
     
     /* Mobile Services Grid Hero */
     .services-grid-hero {
-        width: 350px;
-        height: 500px;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
-        gap: 15px;
-        padding: 20px;
+        width: 300px;
+        height: 400px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 10px;
+        padding: 15px;
+        margin: 0 auto;
     }
     
     .service-block {
-        padding: 20px 15px;
-        height: 90px;
-    }
-    
-    .block-1 {
-        grid-column: 1;
-        grid-row: 1;
-    }
-    
-    .block-2 {
-        grid-column: 1;
-        grid-row: 2;
-    }
-    
-    .block-3 {
-        grid-column: 1;
-        grid-row: 3;
-    }
-    
-    .block-4 {
-        grid-column: 1;
-        grid-row: 4;
+        padding: 15px 10px;
+        height: auto;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
     
     .block-icon {
-        font-size: 2.2rem;
+        font-size: 2rem;
         margin-bottom: 8px;
     }
     
     .block-text h3 {
-        font-size: 0.95rem;
-        margin-bottom: 3px;
+        font-size: 0.8rem;
+        margin-bottom: 2px;
     }
     
     .block-text h4 {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .services-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .service-card {
+        padding: 1.5rem;
     }
     
     .pricing-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .price-card {
+        padding: 1.5rem 1rem;
     }
     
     .hero-buttons {
         justify-content: center;
+        gap: 0.8rem;
     }
     
     .btn {
-        padding: 10px 20px;
+        padding: 12px 20px;
         font-size: 0.9rem;
+    }
+    
+    /* Mobile contact form */
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .contact-form {
+        padding: 1.5rem;
+    }
+    
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    /* Mobile about section */
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .advantages {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .advantage {
+        text-align: left;
+    }
+    
+    /* Mobile footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    /* Mobile SEO content */
+    .seo-content-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .seo-content h2 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+    }
+    
+    .seo-text h3, .seo-benefits h3 {
+        font-size: 1.3rem;
+    }
+    
+    .benefit-item {
+        align-items: flex-start;
+    }
+    
+    .benefit-item i {
+        margin-top: 2px;
+        font-size: 1.3rem;
     }
 }
 
@@ -822,28 +941,260 @@ body {
         padding: 0 15px;
     }
     
+    .nav-brand {
+        font-size: 1rem;
+    }
+    
+    .nav-brand i {
+        font-size: 1.3rem;
+    }
+    
     .hero-title {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
     }
     
     .section-title {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
     }
     
     .service-card,
     .contact-form {
-        padding: 1.5rem;
+        padding: 1.2rem;
     }
     
     .hero-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
     }
     
     .btn {
         width: 100%;
-        max-width: 250px;
+        max-width: 280px;
         justify-content: center;
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+    
+    /* Extra small mobile services */
+    .services-grid-hero {
+        width: 280px;
+        height: 350px;
+        gap: 8px;
+        padding: 10px;
+    }
+    
+    .service-block {
+        padding: 12px 8px;
+        min-height: 100px;
+    }
+    
+    .block-icon {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+    }
+    
+    .block-text h3 {
+        font-size: 0.75rem;
+        margin-bottom: 2px;
+    }
+    
+    .block-text h4 {
+        font-size: 0.65rem;
+    }
+    
+    /* Mobile pricing */
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .price-card {
+        padding: 1.2rem;
+        text-align: center;
+    }
+    
+    .price-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .price {
+        font-size: 1.8rem;
+    }
+    
+    /* Mobile contact */
+    .contact-item {
+        text-align: center;
+    }
+    
+    .contact-item i {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Mobile floating contacts */
+    .nav-phone {
+        bottom: 15px;
+        right: 15px;
+        gap: 8px;
+    }
+    
+    .phone-link {
+        padding: 10px 14px;
+        font-size: 0.8rem;
+    }
+    
+    .social-link {
+        width: 40px;
+        height: 30px;
+        border-radius: 20px;
+        font-size: 1rem;
+    }
+    
+    /* Mobile SEO improvements */
+    .seo-content {
+        padding: 30px 0;
+    }
+    
+    .seo-content h2 {
+        font-size: 1.4rem;
+        margin-bottom: 25px;
+    }
+    
+    .seo-text h3, .seo-benefits h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    
+    .seo-text h4 {
+        font-size: 1.1rem;
+    }
+    
+    .seo-text p {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .benefit-item {
+        margin-bottom: 15px;
+        align-items: flex-start;
+    }
+    
+    .benefit-item i {
+        font-size: 1.2rem;
+        margin-top: 3px;
+        margin-right: 12px;
+    }
+    
+    .benefit-item h4 {
+        font-size: 1rem;
+        margin-bottom: 3px;
+    }
+    
+    .benefit-item p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    
+    .seo-locations p {
+        font-size: 0.9rem;
+        padding: 0 10px;
+    }
+}
+
+/* Extra small devices (phones in landscape) */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .hero-title {
+        font-size: 1.3rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.85rem;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .nav-brand span {
+        display: none; /* Hide text on very small screens */
+    }
+    
+    .nav-brand i {
+        margin-right: 0;
+        font-size: 1.5rem;
+    }
+    
+    .services-grid-hero {
+        width: 250px;
+        height: 320px;
+        gap: 6px;
+        padding: 8px;
+    }
+    
+    .service-block {
+        padding: 8px 5px;
+        min-height: 80px;
+    }
+    
+    .block-icon {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+    }
+    
+    .block-text h3 {
+        font-size: 0.7rem;
+        margin-bottom: 1px;
+    }
+    
+    .block-text h4 {
+        font-size: 0.6rem;
+    }
+    
+    .service-card {
+        padding: 1rem;
+    }
+    
+    .service-features {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.3rem;
+    }
+    
+    .service-features li {
+        font-size: 0.8rem;
+    }
+    
+    .btn {
+        font-size: 0.9rem;
+        padding: 12px 16px;
+    }
+    
+    .nav-phone {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .phone-link {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+    
+    .social-link {
+        width: 35px;
+        height: 25px;
+        border-radius: 17.5px;
+        font-size: 0.9rem;
     }
 }
 
