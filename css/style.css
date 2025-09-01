@@ -744,7 +744,8 @@ body {
         margin-right: 0.3rem;
     }
     
-    /* Show floating contacts only on mobile */
+    /* Show phone bar and floating contacts on mobile */
+    .mobile-phone-bar,
     .mobile-floating-contacts {
         display: flex;
     }
@@ -851,10 +852,61 @@ body {
         transform: translateY(-1px);
     }
     
-    /* Simplified hero section for mobile */
+    /* Mobile horizontal phone bar */
+    .mobile-phone-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+        padding: 12px 20px;
+        text-align: center;
+        z-index: 1002;
+        box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+        backdrop-filter: blur(10px);
+    }
+    
+    .phone-bar-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    
+    .phone-bar-content i {
+        font-size: 1.1rem;
+        animation: gentle-ring 4s infinite;
+    }
+    
+    .phone-number {
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        color: white;
+    }
+    
+    .phone-bar-text {
+        font-size: 0.85rem;
+        opacity: 0.9;
+    }
+    
+    @keyframes gentle-ring {
+        0%, 90%, 100% {
+            transform: rotate(0deg);
+        }
+        5%, 15% {
+            transform: rotate(10deg);
+        }
+        10% {
+            transform: rotate(-10deg);
+        }
+    }
+    
+    /* Adjust main content to account for phone bar */
     .hero {
-        padding: 100px 0 50px;
-        background: #f8fafc;
+        padding: 140px 0 50px;
     }
     
     .hero .container {
@@ -1307,6 +1359,20 @@ body {
         font-size: 1.2rem;
     }
     
+    /* Adjust phone bar for small screens */
+    .mobile-phone-bar {
+        padding: 10px 15px;
+    }
+    
+    .phone-bar-content {
+        font-size: 0.9rem;
+        gap: 10px;
+    }
+    
+    .phone-bar-text {
+        font-size: 0.8rem;
+    }
+    
     .hero-buttons {
         flex-direction: column;
         align-items: center;
@@ -1551,9 +1617,24 @@ body {
         right: 12px;
         gap: 10px;
     }
+    
+    /* Extra small phone bar adjustments */
+    .mobile-phone-bar {
+        padding: 8px 12px;
+    }
+    
+    .phone-bar-content {
+        font-size: 0.85rem;
+        gap: 8px;
+    }
+    
+    .phone-bar-text {
+        display: none; /* Hide text on very small screens */
+    }
 }
 
-/* Mobile floating contacts - hidden by default */
+/* Mobile phone bar and floating contacts - hidden by default */
+.mobile-phone-bar,
 .mobile-floating-contacts {
     display: none;
 }
