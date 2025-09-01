@@ -61,12 +61,14 @@ body {
     display: flex;
     list-style: none;
     gap: 2rem;
+    margin-left: 5rem;
 }
 
 .nav-menu a {
     text-decoration: none;
     color: #4a5568;
     font-weight: 500;
+    font-size: 1.4rem;
     transition: color 0.3s ease;
 }
 
