@@ -1,4 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" fill="#3b82f6" rx="4"/>
-  <text x="16" y="22" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">TM</text>
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e2e8f0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cbd5e1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="32" height="32" fill="url(#bgGrad)" rx="6"/>
+  
+  <!-- Computer monitor -->
+  <rect x="6" y="8" width="16" height="11" fill="#1e293b" rx="1"/>
+  <rect x="7" y="9" width="14" height="8" fill="url(#screenGrad)" rx="0.5"/>
+  
+  <!-- Computer stand -->
+  <rect x="14" y="19" width="4" height="3" fill="#1e293b"/>
+  <rect x="10" y="22" width="12" height="2" fill="#1e293b" rx="1"/>
+  
+  <!-- Tools (screwdriver and wrench) -->
+  <g transform="translate(24, 6) scale(0.3)">
+    <!-- Screwdriver -->
+    <rect x="0" y="0" width="2" height="8" fill="#fbbf24" rx="1"/>
+    <rect x="0.5" y="8" width="1" height="4" fill="#94a3b8"/>
+    
+    <!-- Wrench -->
+    <rect x="4" y="2" width="1.5" height="6" fill="#94a3b8" rx="0.5"/>
+    <circle cx="4.75" cy="1.5" r="1" fill="none" stroke="#94a3b8" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Power button indicator -->
+  <circle cx="26" cy="26" r="2" fill="#10b981"/>
+  <circle cx="26" cy="26" r="1" fill="#ffffff"/>
 </svg>
