@@ -1322,10 +1322,7 @@ body {
     
     .mobile-phone-content {
         font-size: 0.9rem;
-    }
-    
-    .mobile-phone-number {
-        font-size: 1rem;
+        padding-left: 1cm;
     }
     
     .mobile-social-icons {
@@ -1610,28 +1607,10 @@ body {
 .mobile-phone-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     font-size: 1rem;
     font-weight: 600;
-}
-
-.mobile-phone-content i.fa-phone {
-    font-size: 1.1rem;
-    margin-right: 10px;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.mobile-phone-number {
-    text-decoration: none;
-    color: white;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.mobile-phone-number:hover {
-    color: rgba(255, 255, 255, 0.9);
+    padding-left: 1cm;
 }
 
 .mobile-social-icons {
