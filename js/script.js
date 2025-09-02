@@ -56,18 +56,46 @@ window.addEventListener('scroll', function() {
     }
 });
 
+// Phone validation function
+function isValidPhone(phone) {
+    // Remove all non-digits
+    const cleanPhone = phone.replace(/\D/g, '');
+    
+    // Check if it's a valid Ukrainian phone number
+    // Formats: +380XXXXXXXXX, 380XXXXXXXXX, 0XXXXXXXXX, XXXXXXXXX
+    if (cleanPhone.length === 12 && cleanPhone.startsWith('380')) {
+        return true; // +380XXXXXXXXX
+    }
+    if (cleanPhone.length === 10 && cleanPhone.startsWith('0')) {
+        return true; // 0XXXXXXXXX
+    }
+    if (cleanPhone.length === 9) {
+        return true; // XXXXXXXXX (without 0)
+    }
+    
+    return false;
+}
+
 // Contact Form Handling with Telegram Bot
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Get form data
-        const formData = new FormData(this);
-        const name = this.querySelector('input[type="text"]').value;
-        const phone = this.querySelector('input[type="tel"]').value;
-        const service = this.querySelector('select').value;
-        const message = this.querySelector('textarea').value;
+        console.log('Form submitted!');
+        
+        // Get form data with better selectors
+        const nameInput = this.querySelector('input[type="text"]') || this.querySelector('input[placeholder*="ім"]');
+        const phoneInput = this.querySelector('input[type="tel"]') || this.querySelector('input[placeholder*="телеф"]');
+        const serviceSelect = this.querySelector('select');
+        const messageTextarea = this.querySelector('textarea');
+        
+        const name = nameInput ? nameInput.value.trim() : '';
+        const phone = phoneInput ? phoneInput.value.trim() : '';
+        const service = serviceSelect ? serviceSelect.value : '';
+        const message = messageTextarea ? messageTextarea.value.trim() : '';
+        
+        console.log('Form data:', { name, phone, service, message });
         
         // Basic validation
         if (!name || !phone) {
@@ -86,6 +114,8 @@ if (contactForm) {
         // Reset form
         this.reset();
     });
+} else {
+    console.error('Contact form not found!');
 }
 
 // Telegram Bot Configuration
@@ -164,6 +194,11 @@ async function sendToTelegram(name, phone, service, message) {
     try {
         showNotification('Відправляємо заявку...', 'info');
         
+        console.log('Sending to Telegram:', {
+            chat_id: TELEGRAM_CONFIG.chatId,
+            message: telegramMessage
+        });
+        
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -172,14 +207,17 @@ async function sendToTelegram(name, phone, service, message) {
             body: JSON.stringify({
                 chat_id: TELEGRAM_CONFIG.chatId,
                 text: telegramMessage,
-                parse_mode: 'HTML'  // Changed from Markdown to HTML
+                parse_mode: 'HTML'
             })
         });
         
-        if (response.ok) {
+        const result = await response.json();
+        console.log('Telegram API response:', result);
+        
+        if (response.ok && result.ok) {
             showNotification('✅ Дякуємо! Ваша заявка відправлена. Ми зв\'яжемося з вами найближчим часом.', 'success');
         } else {
-            throw new Error('Помилка відправки');
+            throw new Error(`Telegram API error: ${result.description || 'Unknown error'}`);
         }
     } catch (error) {
         console.error('Error sending to Telegram:', error);
