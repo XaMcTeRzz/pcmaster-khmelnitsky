@@ -193,13 +193,7 @@ async function sendToTelegram(name, phone, service, message) {
         
         `⏰ <b>ЧАСОВА МІТКА</b>\n` +
         `    📅 <b>Дата:</b> ${formattedDate} (${dayOfWeek})\n` +
-        `    🕐 <b>Час:</b> ${formattedTime}\n` +
-        `    🌍 <b>Часовий пояс:</b> EET (UTC+2)\n\n` +
-        
-        `📊 <b>СИСТЕМНА ІНФОРМАЦІЯ</b>\n` +
-        `    🎯 <b>Джерело:</b> Офіційний сайт\n` +
-        `    📈 <b>Пріоритет:</b> Звичайний\n` +
-        `    ⚡ <b>Статус:</b> Нова заявка\n\n` +
+        `    🕐 <b>Час:</b> ${formattedTime}\n\n` +
         
         `💼 <b>ПЛАН ДІЙ:</b>\n` +
         `    • 📞 Зателефонувати клієнту\n` +
