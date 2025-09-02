@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приклад повідомлення в Telegram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .message {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            line-height: 1.5;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .pre {
+            font-family: monospace;
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        .italic {
+            font-style: italic;
+        }
+        a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Приклад форматованого повідомлення в Telegram</h1>
+    <div class="message">
+        <p><span class="bold">📬 НОВА ЗАЯВКА #PC987654</span></p>
+        <p><span class="bold">🏢 PC-Master Хмельницький</span><br>
+        📍 м. Хмельницький, Україна</p>
+        <p><span class="bold">👤 Інформація про клієнта:</span></p>
+        <div class="pre">┌────────────────────────────
+│ 👤 Ім'я: Іван Петренко
+│ 📞 Телефон: <a href="tel:+380971234567">+38 (097) 123-45-67</a>
+└────────────────────────────</div>
+        <p><span class="bold">🛠 Деталі замовлення:</span></p>
+        <div class="pre">┌────────────────────────────
+│ 💻 Перестановка Windows
+│ 📝 Опис: Потрібно встановити Windows 11
+└────────────────────────────</div>
+        <p><span class="bold">📅 Дата та час:</span> 15 червня 2023 р., 14:30<br>
+        <span class="bold">🌐 Джерело:</span> Сайт PC-Master</p>
+        <p>------------------------------<br>
+        <span class="italic">📩 Повідомлення згенеровано автоматично</span></p>
+    </div>
+</body>
+</html>
