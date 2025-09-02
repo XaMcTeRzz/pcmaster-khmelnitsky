@@ -29,19 +29,29 @@ img, video {
 .price-card h3,
 .price-card p,
 .contact-item h4,
-.contact-item p {
+.contact-item p,
+.advantage h4,
+.advantage p,
+.about-text h2,
+.about-text p {
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
     max-width: 100%;
+    overflow: visible;
 }
 
 /* Additional scroll fixes */
-.services-grid, .pricing-grid, .contact-content, .about-content {
+.services-grid, .pricing-grid, .contact-content, .about-content, .advantages {
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    overflow: visible;
     box-sizing: border-box;
+}
+
+/* Ensure all text content areas don't scroll */
+.service-card, .price-card, .advantage, .about-text, .contact-item {
+    overflow: visible;
 }
 
 /* Global mobile optimizations */
@@ -414,10 +424,9 @@ body {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
-    min-height: 400px;
     height: auto;
 }
 
@@ -453,7 +462,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    max-height: none;
     overflow: visible;
 }
 
@@ -570,10 +578,9 @@ body {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
-    min-height: 200px;
     height: auto;
 }
 

@@ -94,25 +94,70 @@ const TELEGRAM_CONFIG = {
     chatId: '542791657'
 };
 
+// Generate unique ID for each request
+function generateRequestId() {
+    return 'PC' + Date.now().toString().slice(-6) + Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+}
+
 // Send message to Telegram
 async function sendToTelegram(name, phone, service, message) {
     const serviceNames = {
-        'windows': 'Перестановка Windows',
-        'programs': 'Налаштування програм',
-        'repair': 'Ремонт комп\'ютера',
-        'virus': 'Видалення вірусів',
-        'network': 'Налаштування мережі',
-        'other': 'Інше'
+        'windows': '💻 Перестановка Windows',
+        'programs': '⚙️ Налаштування програм',
+        'repair': '🔧 Ремонт комп\'ютера',
+        'virus': '🛡 Видалення вірусів',
+        'network': '🌐 Налаштування мережі',
+        'other': '❓ Інше'
     };
     
     const serviceName = serviceNames[service] || 'Не вказано';
     
-    const telegramMessage = `🔧 *Нова заявка PC-Master Хмельницький*\n\n` +
-        `👤 *Ім\'я:* ${name}\n` +
-        `📞 *Телефон:* ${phone}\n` +
-        `🛠 *Послуга:* ${serviceName}\n` +
-        `📝 *Опис:* ${message || 'Не вказано'}\n\n` +
-        `🌐 *Джерело:* Сайт PC-Master`;
+    // Clean phone number for tel: link (only digits)
+    const cleanPhone = phone.replace(/\D/g, '');
+    let dialNumber = phone;
+    
+    // Format phone number for display
+    let formattedPhone = phone;
+    if (cleanPhone.startsWith('380') && cleanPhone.length === 12) {
+        formattedPhone = `+38 (${cleanPhone.slice(2, 5)}) ${cleanPhone.slice(5, 8)}-${cleanPhone.slice(8, 10)}-${cleanPhone.slice(10, 12)}`;
+        dialNumber = `+${cleanPhone}`;
+    } else if (cleanPhone.length === 10) {
+        formattedPhone = `+38 (${cleanPhone.slice(0, 3)}) ${cleanPhone.slice(3, 6)}-${cleanPhone.slice(6, 8)}-${cleanPhone.slice(8, 10)}`;
+        dialNumber = `+38${cleanPhone}`;
+    }
+    
+    // Get current date and time
+    const now = new Date();
+    const dateTime = now.toLocaleString('uk-UA', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+    
+    // Generate unique request ID
+    const requestId = generateRequestId();
+    
+    // Create a more structured and visually appealing message using HTML
+    const telegramMessage = 
+        `<b>📬 НОВА ЗАЯВКА #${requestId}</b>\n\n` +
+        `<b>🏢 PC-Master Хмельницький</b>\n` +
+        `📍 м. Хмельницький, Україна\n\n` +
+        `<b>👤 Інформація про клієнта:</b>\n` +
+        `<pre>┌────────────────────────────\n` +
+        `│ 👤 Ім'я: ${name}\n` +
+        `│ 📞 Телефон: <a href="tel:${dialNumber}">${formattedPhone}</a>\n` +
+        `└────────────────────────────</pre>\n\n` +
+        `<b>🛠 Деталі замовлення:</b>\n` +
+        `<pre>┌────────────────────────────\n` +
+        `│ ${serviceName}\n` +
+        `│ 📝 Опис: ${message || 'Не вказано'}\n` +
+        `└────────────────────────────</pre>\n\n` +
+        `<b>📅 Дата та час:</b> ${dateTime}\n` +
+        `<b>🌐 Джерело:</b> Сайт PC-Master\n\n` +
+        `------------------------------\n` +
+        `<i>📩 Повідомлення згенеровано автоматично</i>`;
     
     const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`;
     
@@ -127,7 +172,7 @@ async function sendToTelegram(name, phone, service, message) {
             body: JSON.stringify({
                 chat_id: TELEGRAM_CONFIG.chatId,
                 text: telegramMessage,
-                parse_mode: 'Markdown'
+                parse_mode: 'HTML'  // Changed from Markdown to HTML
             })
         });
         
@@ -140,12 +185,6 @@ async function sendToTelegram(name, phone, service, message) {
         console.error('Error sending to Telegram:', error);
         showNotification('❌ Помилка відправки. Будь ласка, зателефонуйте: +38 (097) 609-73-10', 'error');
     }
-}
-
-// Phone number validation
-function isValidPhone(phone) {
-    const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
-    return phoneRegex.test(phone);
 }
 
 // Notification system
