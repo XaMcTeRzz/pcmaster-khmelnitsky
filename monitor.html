@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔔 PC-Master: Монітор заявок Online</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .status-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .status-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .status-card h3 {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .status-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .controls {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .controls h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .control-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .btn.success {
+            background: linear-gradient(45deg, #00b894, #00a085);
+        }
+        
+        .btn.primary {
+            background: linear-gradient(45deg, #0984e3, #6c5ce7);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .notifications-panel {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .notification-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ffd700;
+            animation: slideIn 0.5s ease;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-item:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .notification-item.urgent {
+            border-left-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .notification-time {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .notification-content {
+            font-weight: bold;
+            line-height: 1.4;
+        }
+        
+        .notification-details {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.9; }
+        }
+        
+        .connection-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .connection-status.connected {
+            background: linear-gradient(45deg, #00b894, #00a085);
+        }
+        
+        .connection-status.disconnected {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        }
+        
+        .sound-test {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .emergency-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            z-index: 9999;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: emergencyPulse 1s infinite;
+            max-width: 90vw;
+        }
+        
+        @keyframes emergencyPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+        
+        .close-alert {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .control-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="connection-status" id="connectionStatus">🔄 Подключение...</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🔔 PC-Master: Монітор заявок</h1>
+            <p>Онлайн система мониторинга заявок с push-уведомлениями</p>
+        </div>
+        
+        <div class="status-grid">
+            <div class="status-card">
+                <h3>📊 Статус системы</h3>
+                <div class="status-value" id="systemStatus">🟡 Старт</div>
+            </div>
+            <div class="status-card">
+                <h3>📈 Заявок сегодня</h3>
+                <div class="status-value" id="todayCount">0</div>
+            </div>
+            <div class="status-card">
+                <h3>⏰ Последняя заявка</h3>
+                <div class="status-value" id="lastRequest">—</div>
+            </div>
+            <div class="status-card">
+                <h3>👥 Активных мониторов</h3>
+                <div class="status-value" id="activeMonitors">1</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <h2>⚙️ Управление системой</h2>
+            
+            <div class="sound-test">
+                <p style="margin-bottom: 15px;">🔊 Тестирование звуковых уведомлений:</p>
+                <div class="control-row">
+                    <button class="btn primary" id="testPushBtn">📱 Тест Push</button>
+                    <button class="btn primary" id="testSoundBtn">🎵 Тест звука</button>
+                    <button class="btn primary" id="testFullBtn">🚨 Полный тест</button>
+                </div>
+            </div>
+            
+            <div class="control-row">
+                <button class="btn success" id="enableNotificationsBtn">🔔 Включить уведомления</button>
+                <button class="btn" id="subscribeBtn">📱 Подписаться на Push</button>
+                <button class="btn primary" id="refreshBtn">🔄 Обновить</button>
+            </div>
+        </div>
+        
+        <div class="notifications-panel">
+            <h2>📋 Журнал уведомлений</h2>
+            <div id="notificationsList">
+                <div class="notification-item">
+                    <div class="notification-header">
+                        <span class="notification-time">Система запущена</span>
+                        <span>✅</span>
+                    </div>
+                    <div class="notification-content">Монитор заявок готов к работе</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class OnlineRequestMonitor {
+            constructor() {
+                this.notifications = [];
+                this.todayCount = 0;
+                this.lastRequestTime = null;
+                this.isConnected = false;
+                this.audioContext = null;
+                this.notificationSupported = 'Notification' in window;
+                
+                this.init();
+            }
+            
+            async init() {
+                this.setupEventListeners();
+                await this.initializePushNotifications();
+                this.updateConnectionStatus('connected');
+                this.startPeriodicCheck();
+            }
+            
+            setupEventListeners() {
+                document.getElementById('testPushBtn').addEventListener('click', () => this.testPushNotification());
+                document.getElementById('testSoundBtn').addEventListener('click', () => this.testSoundNotification());
+                document.getElementById('testFullBtn').addEventListener('click', () => this.testFullNotification());
+                document.getElementById('enableNotificationsBtn').addEventListener('click', () => this.requestNotificationPermission());
+                document.getElementById('subscribeBtn').addEventListener('click', () => this.subscribeToPush());
+                document.getElementById('refreshBtn').addEventListener('click', () => this.refresh());
+            }
+            
+            async initializePushNotifications() {
+                if (!this.notificationSupported) {
+                    this.addNotification('❌ Браузер не поддерживает уведомления', 'error');
+                    return;
+                }
+                
+                if (Notification.permission === 'granted') {
+                    this.addNotification('✅ Уведомления разрешены');
+                    await this.subscribeToPush();
+                } else if (Notification.permission === 'default') {
+                    this.addNotification('🔔 Необходимо разрешить уведомления');
+                }
+            }
+            
+            async requestNotificationPermission() {
+                if (!this.notificationSupported) {
+                    alert('Ваш браузер не поддерживает уведомления');
+                    return;
+                }
+                
+                try {
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        this.addNotification('✅ Разрешение на уведомления получено');
+                        await this.subscribeToPush();
+                    } else {
+                        this.addNotification('❌ Разрешение на уведомления отклонено', 'error');
+                    }
+                } catch (error) {
+                    console.error('Ошибка запроса разрешений:', error);
+                    this.addNotification('❌ Ошибка получения разрешений', 'error');
+                }
+            }
+            
+            async subscribeToPush() {
+                if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+                    this.addNotification('❌ Push-уведомления не поддерживаются', 'error');
+                    return;
+                }
+                
+                try {
+                    // Регистрируем Service Worker
+                    const registration = await navigator.serviceWorker.register('/sw.js');
+                    this.addNotification('✅ Service Worker зарегистрирован');
+                    
+                    // Получаем VAPID ключ
+                    const response = await fetch('/.netlify/functions/push-notifications/vapid-public-key');
+                    const { publicKey } = await response.json();
+                    
+                    // Создаем подписку
+                    const subscription = await registration.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: this.urlBase64ToUint8Array(publicKey)
+                    });
+                    
+                    // Отправляем подписку на сервер
+                    await fetch('/.netlify/functions/push-notifications/subscribe', {\n                        method: 'POST',\n                        headers: { 'Content-Type': 'application/json' },\n                        body: JSON.stringify(subscription)\n                    });\n                    \n                    this.addNotification('🎉 Push-уведомления активированы!');\n                    document.getElementById('systemStatus').textContent = '🟢 Активен';\n                    \n                } catch (error) {\n                    console.error('Ошибка подписки на push:', error);\n                    this.addNotification('❌ Ошибка активации push-уведомлений', 'error');\n                }\n            }\n            \n            async testPushNotification() {\n                try {\n                    const response = await fetch('/.netlify/functions/push-notifications/send', {\n                        method: 'POST',\n                        headers: { 'Content-Type': 'application/json' },\n                        body: JSON.stringify({\n                            title: '🧪 Тестовое уведомление',\n                            body: 'Это тестовое push-уведомление PC-Master',\n                            data: { type: 'test' }\n                        })\n                    });\n                    \n                    if (response.ok) {\n                        this.addNotification('✅ Тестовое push-уведомление отправлено');\n                    } else {\n                        throw new Error('Ошибка отправки');\n                    }\n                } catch (error) {\n                    console.error('Ошибка тестового push:', error);\n                    this.addNotification('❌ Ошибка отправки тестового push', 'error');\n                }\n            }\n            \n            testSoundNotification() {\n                this.playAlertSound();\n                this.addNotification('🎵 Тестовый звук воспроизведен');\n            }\n            \n            testFullNotification() {\n                this.simulateNewRequest({\n                    name: 'Тестовый Клиент',\n                    phone: '+38 (097) 123-45-67',\n                    service: '💻 Перестановка Windows',\n                    message: 'Тестовая заявка для проверки системы'\n                });\n            }\n            \n            simulateNewRequest(requestData) {\n                this.todayCount++;\n                this.lastRequestTime = new Date();\n                \n                // Обновляем статистику\n                document.getElementById('todayCount').textContent = this.todayCount;\n                document.getElementById('lastRequest').textContent = \n                    this.lastRequestTime.toLocaleTimeString('uk-UA');\n                \n                // Звуковое уведомление\n                this.playAlertSound();\n                \n                // Визуальный алерт\n                this.showEmergencyAlert(requestData);\n                \n                // Добавляем в журнал\n                this.addNotification(\n                    `📞 Новая заявка: ${requestData.name} | ${requestData.service}`,\n                    'urgent',\n                    requestData\n                );\n                \n                // Отправляем push-уведомление\n                this.sendPushNotification({\n                    title: '🚨 Новая заявка PC-Master!',\n                    body: `${requestData.name}\\n${requestData.phone}\\n${requestData.service}`,\n                    data: requestData\n                });\n            }\n            \n            showEmergencyAlert(requestData) {\n                const alert = document.createElement('div');\n                alert.className = 'emergency-alert';\n                alert.innerHTML = `\n                    <button class=\"close-alert\" onclick=\"this.parentElement.remove()\">&times;</button>\n                    <div>🚨 НОВАЯ ЗАЯВКА!</div>\n                    <div style=\"margin: 15px 0; font-size: 1.2em;\">\n                        <div>👤 ${requestData.name}</div>\n                        <div>📞 ${requestData.phone}</div>\n                        <div>🛠️ ${requestData.service}</div>\n                    </div>\n                    <div style=\"font-size: 0.9em; opacity: 0.9;\">Кликните чтобы закрыть</div>\n                `;\n                \n                // Мигание фона\n                let blinkCount = 0;\n                const blinkInterval = setInterval(() => {\n                    document.body.style.backgroundColor = blinkCount % 2 === 0 ? 'rgba(255, 68, 68, 0.3)' : '';\n                    blinkCount++;\n                    if (blinkCount > 8) {\n                        clearInterval(blinkInterval);\n                        document.body.style.backgroundColor = '';\n                    }\n                }, 300);\n                \n                document.body.appendChild(alert);\n                \n                // Автозакрытие через 15 секунд\n                setTimeout(() => {\n                    if (alert.parentNode) {\n                        alert.remove();\n                    }\n                }, 15000);\n                \n                // Закрытие по клику\n                alert.addEventListener('click', () => alert.remove());\n            }\n            \n            playAlertSound() {\n                if (!this.audioContext) {\n                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();\n                }\n                \n                // Создаем настойчивый звук сирены\n                const oscillator = this.audioContext.createOscillator();\n                const gainNode = this.audioContext.createGain();\n                \n                oscillator.connect(gainNode);\n                gainNode.connect(this.audioContext.destination);\n                \n                // Сирена: модуляция частоты\n                oscillator.frequency.setValueAtTime(800, this.audioContext.currentTime);\n                oscillator.frequency.exponentialRampToValueAtTime(400, this.audioContext.currentTime + 0.5);\n                oscillator.frequency.exponentialRampToValueAtTime(800, this.audioContext.currentTime + 1);\n                \n                gainNode.gain.setValueAtTime(0.7, this.audioContext.currentTime);\n                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 2);\n                \n                oscillator.start();\n                oscillator.stop(this.audioContext.currentTime + 2);\n                \n                // Повторяем 3 раза\n                setTimeout(() => this.playAlertSound(), 2500);\n                setTimeout(() => this.playAlertSound(), 5000);\n            }\n            \n            async sendPushNotification(data) {\n                try {\n                    await fetch('/.netlify/functions/push-notifications/send', {\n                        method: 'POST',\n                        headers: { 'Content-Type': 'application/json' },\n                        body: JSON.stringify(data)\n                    });\n                } catch (error) {\n                    console.error('Ошибка отправки push:', error);\n                }\n            }\n            \n            addNotification(message, type = 'info', details = null) {\n                const time = new Date().toLocaleTimeString('uk-UA');\n                const notification = document.createElement('div');\n                notification.className = `notification-item ${type === 'urgent' ? 'urgent' : ''}`;\n                \n                let detailsHtml = '';\n                if (details) {\n                    detailsHtml = `\n                        <div class=\"notification-details\">\n                            📱 ${details.phone || 'Не указан'}<br>\n                            💬 ${details.message || 'Без комментария'}\n                        </div>\n                    `;\n                }\n                \n                notification.innerHTML = `\n                    <div class=\"notification-header\">\n                        <span class=\"notification-time\">${time}</span>\n                        <span>${type === 'error' ? '❌' : type === 'urgent' ? '🚨' : '✅'}</span>\n                    </div>\n                    <div class=\"notification-content\">${message}</div>\n                    ${detailsHtml}\n                `;\n                \n                const list = document.getElementById('notificationsList');\n                list.insertBefore(notification, list.firstChild);\n                \n                // Ограничиваем количество уведомлений\n                const notifications = list.children;\n                if (notifications.length > 50) {\n                    list.removeChild(notifications[notifications.length - 1]);\n                }\n            }\n            \n            updateConnectionStatus(status) {\n                const statusElement = document.getElementById('connectionStatus');\n                if (status === 'connected') {\n                    statusElement.textContent = '🟢 Подключен';\n                    statusElement.className = 'connection-status connected';\n                    this.isConnected = true;\n                } else {\n                    statusElement.textContent = '🔴 Отключен';\n                    statusElement.className = 'connection-status disconnected';\n                    this.isConnected = false;\n                }\n            }\n            \n            startPeriodicCheck() {\n                // Проверяем новые заявки каждые 30 секунд\n                setInterval(async () => {\n                    try {\n                        // Здесь можно добавить проверку API на новые заявки\n                        // const response = await fetch('/.netlify/functions/check-requests');\n                        console.log('Проверка новых заявок...');\n                    } catch (error) {\n                        console.error('Ошибка проверки заявок:', error);\n                        this.updateConnectionStatus('disconnected');\n                    }\n                }, 30000);\n            }\n            \n            refresh() {\n                location.reload();\n            }\n            \n            urlBase64ToUint8Array(base64String) {\n                const padding = '='.repeat((4 - base64String.length % 4) % 4);\n                const base64 = (base64String + padding)\n                    .replace(/\\-/g, '+')\n                    .replace(/_/g, '/');\n            \n                const rawData = window.atob(base64);\n                const outputArray = new Uint8Array(rawData.length);\n            \n                for (let i = 0; i < rawData.length; ++i) {\n                    outputArray[i] = rawData.charCodeAt(i);\n                }\n                return outputArray;\n            }\n        }\n        \n        // Инициализация при загрузке страницы\n        document.addEventListener('DOMContentLoaded', () => {\n            window.monitor = new OnlineRequestMonitor();\n        });\n        \n        // Обработка закрытия страницы\n        window.addEventListener('beforeunload', (e) => {\n            e.preventDefault();\n            e.returnValue = 'Вы действительно хотите закрыть монитор заявок?';\n        });\n    </script>\n</body>\n</html>"

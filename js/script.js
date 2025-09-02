@@ -1,3 +1,8 @@
+// Force HTTPS redirect
+if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+    location.replace('https:' + window.location.href.substring(window.location.protocol.length));
+}
+
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
@@ -232,6 +237,42 @@ async function sendToTelegram(name, phone, service, message) {
         
         if (response.ok && result.ok) {
             showNotification('✅ Дякуємо! Ваша заявка відправлена. Ми зв\'яжемося з вами найближчим часом.', 'success');
+            
+            // Отправляем уведомление через Netlify Function
+            try {
+                const notificationResponse = await fetch('/.netlify/functions/new-request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        phone: formattedPhone,
+                        service: serviceName,
+                        message: message,
+                        requestId: requestId,
+                        timestamp: Date.now()
+                    })
+                });
+                
+                if (notificationResponse.ok) {
+                    console.log('✅ Уведомление отправлено через Netlify Function');
+                    
+                    // Отправляем push-уведомление
+                    await sendPushNotification({
+                        title: '🚨 Новая заявка PC-Master!',
+                        body: `${name}\n${formattedPhone}\n${serviceName}`,
+                        data: {
+                            name: name,
+                            phone: formattedPhone,
+                            service: serviceName,
+                            requestId: requestId
+                        }
+                    });
+                }
+            } catch (functionError) {
+                console.log('❌ Netlify Function недоступна:', functionError);
+            }
         } else {
             throw new Error(`Telegram API error: ${result.description || 'Unknown error'}`);
         }
@@ -431,4 +472,105 @@ if ('IntersectionObserver' in window) {
     document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
     });
+}
+
+// ===== PUSH-УВЕДОМЛЕНИЯ =====
+
+// Инициализация push-уведомлений
+let isNotificationsEnabled = false;
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', async () => {
+    await initializePushNotifications();
+});
+
+// Инициализация push-уведомлений
+async function initializePushNotifications() {
+    // Проверяем поддержку
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        console.log('Push-уведомления не поддерживаются');
+        return;
+    }
+
+    try {
+        // Регистрируем Service Worker
+        const registration = await navigator.serviceWorker.register('/sw.js');
+        console.log('Service Worker зарегистрирован');
+
+        // Запрашиваем разрешение на уведомления
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+            await subscribeToPushNotifications(registration);
+        }
+    } catch (error) {
+        console.error('Ошибка инициализации push-уведомлений:', error);
+    }
+}
+
+// Подписка на push-уведомления
+async function subscribeToPushNotifications(registration) {
+    try {
+        // Получаем публичный ключ VAPID
+        const response = await fetch('/.netlify/functions/push-notifications/vapid-public-key');
+        const { publicKey } = await response.json();
+
+        // Создаем подписку
+        const subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(publicKey)
+        });
+
+        // Отправляем подписку на сервер
+        await fetch('/.netlify/functions/push-notifications/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(subscription)
+        });
+
+        isNotificationsEnabled = true;
+        console.log('✅ Push-уведомления включены');
+    } catch (error) {
+        console.error('Ошибка подписки на push-уведомления:', error);
+    }
+}
+
+// Отправка push-уведомления
+async function sendPushNotification(data) {
+    if (!isNotificationsEnabled) {
+        console.log('Push-уведомления отключены');
+        return;
+    }
+
+    try {
+        const response = await fetch('/.netlify/functions/push-notifications/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        console.log('📱 Push-уведомление отправлено:', result);
+    } catch (error) {
+        console.error('Ошибка отправки push-уведомления:', error);
+    }
+}
+
+// Вспомогательная функция для конвертации VAPID ключа
+function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
+
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
 }
