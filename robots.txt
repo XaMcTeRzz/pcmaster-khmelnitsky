@@ -8,7 +8,7 @@ Allow: /js/
 Allow: /images/
 
 # Sitemap
-Sitemap: https://ВАШ_ДОМЕН.xyz/sitemap.xml
+Sitemap: https://pcmaster-khmelnytskyi.xyz/sitemap.xml
 
 # Запрещаем индексацию служебных файлов
 Disallow: /*.log

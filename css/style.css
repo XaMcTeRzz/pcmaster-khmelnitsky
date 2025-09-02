@@ -33,12 +33,19 @@ img, video {
 .advantage h4,
 .advantage p,
 .about-text h2,
-.about-text p {
+.about-text p,
+.hero-title,
+.hero-subtitle,
+.section-title,
+.section-subtitle,
+h1, h2, h3, h4, h5, h6, p, div, span {
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
     max-width: 100%;
     overflow: visible;
+    word-break: break-word;
+    white-space: normal;
 }
 
 /* Additional scroll fixes */
@@ -57,7 +64,7 @@ img, video {
 /* Global mobile optimizations */
 html {
     scroll-behavior: smooth;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
     width: 100%;
     height: 100%;
     max-width: 100%;
@@ -68,11 +75,13 @@ body {
     line-height: 1.6;
     color: #2d3748;
     background-color: #f1f5f9;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
     width: 100%;
     max-width: 100%;
     min-height: 100vh;
     position: relative;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Direct fix for the scrolling issue */
@@ -817,6 +826,16 @@ body {
         position: relative;
     }
     
+    /* Global text overflow prevention */
+    * {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
     .container {
         width: 100%;
         max-width: 100%;
@@ -1418,8 +1437,28 @@ body {
 }
 
 @media (max-width: 480px) {
+    /* Global text overflow prevention for small screens */
+    * {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
     .container {
         padding: 0 15px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
     
     .nav-brand {
@@ -1684,8 +1723,28 @@ body {
 
 /* Extra small devices (phones in landscape) */
 @media (max-width: 360px) {
+    /* Aggressive text overflow prevention for very small screens */
+    * {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
     .container {
         padding: 0 10px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
     
     .hero-title {
