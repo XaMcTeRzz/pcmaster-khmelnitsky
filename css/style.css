@@ -178,97 +178,9 @@ body {
     transition: 0.3s;
 }
 
-/* Discount Banner */
-.discount-banner {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    top: 80px; /* После fixed header */
-    left: 0;
-    z-index: 1001; /* Выше всех остальных элементов */
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-}
-
-.discount-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    animation: shine 3s infinite;
-}
-
-@keyframes shine {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
-
-.discount-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    color: white;
-    font-weight: 600;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
-
-.discount-content i {
-    font-size: 1.2rem;
-    color: #fbbf24;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-.discount-text {
-    font-size: 1rem;
-    font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-@media (max-width: 768px) {
-    .discount-banner {
-        padding: 12px 0;
-        top: 70px; /* На мобильных header меньше */
-        font-size: 0.95rem;
-    }
-    
-    .discount-content {
-        gap: 8px;
-        padding: 0 15px;
-    }
-    
-    .discount-text {
-        font-size: 0.85rem;
-        line-height: 1.3;
-    }
-    
-    .discount-content i {
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .discount-text {
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
-}
-
 /* Hero Section */
 .hero {
-    padding: 170px 0 80px; /* Увеличиваем padding-top чтобы учесть fixed баннер */
+    padding: 120px 0 80px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     overflow: hidden;
@@ -650,6 +562,105 @@ body {
 .pricing {
     padding: 80px 0;
     background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+/* Discount Info in Pricing Section */
+.discount-info {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.discount-highlight {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 25px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.discount-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.discount-highlight i {
+    font-size: 2rem;
+    color: #fbbf24;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.discount-text h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.discount-text p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .discount-highlight {
+        padding: 20px 15px;
+        gap: 15px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .discount-highlight i {
+        font-size: 1.5rem;
+    }
+    
+    .discount-text h3 {
+        font-size: 1.2rem;
+    }
+    
+    .discount-text p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .discount-highlight {
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .discount-text h3 {
+        font-size: 1.1rem;
+    }
+    
+    .discount-text p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
 }
 
 .pricing-grid {
@@ -1109,9 +1120,9 @@ body {
     
     /* Remove mobile phone bar - it was interfering with mobile UX */
     
-    /* Adjust hero section for mobile with discount banner */
+    /* Adjust hero section for mobile */
     .hero {
-        padding: 180px 0 40px; /* Увеличиваем padding-top чтобы учесть баннер скидок */
+        padding: 130px 0 40px;
         background: #f8fafc;
     }
     
