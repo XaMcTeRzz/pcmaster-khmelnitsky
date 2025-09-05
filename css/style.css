@@ -573,17 +573,18 @@ body {
 .discount-highlight {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
-    padding: 25px;
-    border-radius: 20px;
+    padding: 15px 30px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    max-width: 600px;
+    gap: 15px;
+    max-width: 800px;
     margin: 0 auto;
-    box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 6px 25px rgba(16, 185, 129, 0.25);
     position: relative;
     overflow: hidden;
+    height: 60px;
 }
 
 .discount-highlight::before {
@@ -603,9 +604,10 @@ body {
 }
 
 .discount-highlight i {
-    font-size: 2rem;
+    font-size: 1.3rem;
     color: #fbbf24;
     animation: pulse 2s infinite;
+    flex-shrink: 0;
 }
 
 @keyframes pulse {
@@ -614,52 +616,63 @@ body {
 }
 
 .discount-text h3 {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.2rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    line-height: 1.2;
+}
+
+.discount-subtitle {
+    font-weight: 500;
+    font-size: 0.9rem;
+    opacity: 0.9;
 }
 
 .discount-text p {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     opacity: 0.95;
     margin: 0;
+    line-height: 1.3;
 }
 
 @media (max-width: 768px) {
     .discount-highlight {
-        padding: 20px 15px;
-        gap: 15px;
-        flex-direction: column;
-        text-align: center;
+        padding: 12px 20px;
+        gap: 12px;
+        max-width: 95%;
+        height: 50px;
     }
     
     .discount-highlight i {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
     }
     
     .discount-text h3 {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     
     .discount-text p {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
     .discount-highlight {
-        padding: 15px;
-        gap: 10px;
+        padding: 10px 15px;
+        gap: 8px;
+        height: 45px;
+        max-width: 98%;
     }
     
     .discount-text h3 {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.1rem;
     }
     
     .discount-text p {
-        font-size: 0.9rem;
-        line-height: 1.4;
+        font-size: 0.75rem;
+        line-height: 1.2;
     }
 }
 
