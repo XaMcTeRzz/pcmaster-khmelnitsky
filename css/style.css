@@ -180,7 +180,7 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 160px 0 80px; /* Увеличено для fixed баннера 40px */
+    padding: 120px 0 80px; /* Уменьшено, так как баннер удален */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     overflow: hidden;
@@ -564,74 +564,41 @@ body {
     background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
-/* Static Discount Banner */
-.thin-discount-banner {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    height: 40px;
-    display: flex;
-    align-items: center;
-    position: fixed;
-    top: 80px; /* Под навигацией */
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 999;
-    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.thin-discount-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 600;
+/* Discount Line in Pricing Section */
+.discount-line {
     text-align: center;
+    color: #dc2626;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1rem 0 2rem 0;
+    padding: 8px 0;
+    border-bottom: 2px solid #dc2626;
+    position: relative;
+}
+
+.discount-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
-}
-
-.thin-discount-content i {
-    font-size: 1rem;
-    color: #fbbf24;
-}
-
-.thin-discount-content span {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    line-height: 1.2;
+    height: 2px;
+    background: #dc2626;
 }
 
 @media (max-width: 768px) {
-    .thin-discount-banner {
-        height: 36px;
-        top: 70px; /* На мобильных header меньше */
-    }
-    
-    .thin-discount-content {
-        font-size: 0.8rem;
-        gap: 10px;
-    }
-    
-    .thin-discount-content i {
-        font-size: 0.9rem;
+    .discount-line {
+        font-size: 1rem;
+        margin: 0.8rem 0 1.5rem 0;
     }
 }
 
 @media (max-width: 480px) {
-    .thin-discount-banner {
-        height: 32px;
-        top: 70px;
-    }
-    
-    .thin-discount-content {
-        font-size: 0.75rem;
-        gap: 8px;
-        padding: 0 10px;
-    }
-    
-    .thin-discount-content i {
-        font-size: 0.8rem;
+    .discount-line {
+        font-size: 0.9rem;
+        margin: 0.5rem 0 1rem 0;
+        padding: 6px 10px;
     }
 }
 
