@@ -198,6 +198,8 @@ body {
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.2;
+    word-break: keep-all;
+    hyphens: none;
 }
 
 .hero-subtitle {
