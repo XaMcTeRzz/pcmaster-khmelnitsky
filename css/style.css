@@ -567,24 +567,11 @@ body {
 /* Discount Line in Pricing Section */
 .discount-line {
     text-align: center;
-    color: #dc2626;
+    color: #3b82f6;
     font-size: 1.1rem;
     font-weight: 600;
     margin: 1rem 0 2rem 0;
     padding: 8px 0;
-    border-bottom: 2px solid #dc2626;
-    position: relative;
-}
-
-.discount-line::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 2px;
-    background: #dc2626;
 }
 
 @media (max-width: 768px) {
