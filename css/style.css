@@ -180,7 +180,7 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 120px 0 80px;
+    padding: 155px 0 80px; /* Увеличено на 35px для тонкого баннера */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     overflow: hidden;
@@ -564,57 +564,27 @@ body {
     background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
-/* Pricing Header - заголовок и баннер в одной строке */
-.pricing-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    margin-bottom: 3rem;
-    flex-wrap: nowrap;
-}
-
-.pricing-header .section-title {
-    margin-bottom: 0;
-    flex-shrink: 0;
-    white-space: nowrap;
-}
-
-/* Discount Info in Pricing Section */
-.discount-info {
-    margin-bottom: 0;
-    text-align: right;
-    flex-shrink: 1;
-    min-width: 400px;
-    max-width: 600px;
-}
-
-.discount-highlight {
+/* Thin Discount Banner */
+.thin-discount-banner {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    padding: 12px 25px;
-    border-radius: 12px;
+    height: 35px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 15px;
-    max-width: 100%;
-    margin: 0;
-    box-shadow: 0 6px 25px rgba(16, 185, 129, 0.25);
     position: relative;
     overflow: hidden;
-    height: 50px;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.discount-highlight::before {
+.thin-discount-banner::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    animation: shine 3s infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    animation: shine 4s infinite;
 }
 
 @keyframes shine {
@@ -622,113 +592,64 @@ body {
     100% { left: 100%; }
 }
 
-.discount-highlight i {
-    font-size: 1.3rem;
+.thin-discount-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.thin-discount-content i {
+    font-size: 0.9rem;
     color: #fbbf24;
     animation: pulse 2s infinite;
-    flex-shrink: 0;
 }
 
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.05); }
 }
 
-.discount-text h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.2rem;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+.thin-discount-content span {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     line-height: 1.2;
 }
 
-.discount-subtitle {
-    font-weight: 500;
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
-
-.discount-text p {
-    font-size: 0.9rem;
-    opacity: 0.95;
-    margin: 0;
-    line-height: 1.3;
-}
-
-@media (max-width: 1024px) {
-    .pricing-header {
-        flex-wrap: wrap;
-    }
-    
-    .pricing-header .section-title {
-        white-space: normal;
-        margin-bottom: 1rem;
-    }
-    
-    .discount-info {
-        width: 100%;
-        min-width: auto;
-        text-align: center;
-    }
-}
-
 @media (max-width: 768px) {
-    .pricing-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
+    .thin-discount-banner {
+        height: 32px;
     }
     
-    .pricing-header .section-title {
-        margin-bottom: 0.5rem;
+    .thin-discount-content {
+        font-size: 0.8rem;
+        gap: 10px;
     }
     
-    .discount-info {
-        width: 100%;
-        max-width: 100%;
-        text-align: center;
-    }
-    
-    .discount-highlight {
-        padding: 12px 20px;
-        gap: 12px;
-        max-width: 100%;
-        height: 50px;
-    }
-    
-    .discount-highlight i {
-        font-size: 1.1rem;
-    }
-    
-    .discount-text h3 {
-        font-size: 1rem;
-    }
-    
-    .discount-text p {
+    .thin-discount-content i {
         font-size: 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
-    .pricing-header {
-        gap: 0.5rem;
+    .thin-discount-banner {
+        height: 30px;
     }
     
-    .discount-highlight {
-        padding: 10px 15px;
-        gap: 8px;
-        height: 45px;
-        max-width: 100%;
-    }
-    
-    .discount-text h3 {
-        font-size: 0.9rem;
-        margin-bottom: 0.1rem;
-    }
-    
-    .discount-text p {
+    .thin-discount-content {
         font-size: 0.75rem;
-        line-height: 1.2;
+        gap: 8px;
+        padding: 0 10px;
+    }
+    
+    .thin-discount-content i {
+        font-size: 0.75rem;
     }
 }
 
@@ -1189,9 +1110,9 @@ body {
     
     /* Remove mobile phone bar - it was interfering with mobile UX */
     
-    /* Adjust hero section for mobile */
+    /* Adjust hero section for mobile with thin banner */
     .hero {
-        padding: 130px 0 40px;
+        padding: 162px 0 40px; /* Увеличено для тонкого баннера */
         background: #f8fafc;
     }
     
