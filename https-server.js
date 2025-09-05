@@ -1,8 +1,14 @@
-const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const server = http.createServer((req, res) => {
+// Для локальной разработки с самоподписанным сертификатом
+const options = {
+  key: fs.readFileSync(path.join(__dirname, 'localhost-key.pem')),
+  cert: fs.readFileSync(path.join(__dirname, 'localhost.pem'))
+};
+
+const server = https.createServer(options, (req, res) => {
   // Обробка кореневого шляху
   if (req.url === '/' || req.url === '/index.html') {
     fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
@@ -14,41 +20,29 @@ const server = http.createServer((req, res) => {
         res.end(data);
       }
     });
-  }
-  // Обробка CSS файлів
+  } 
+  // Обробка статичних файлів CSS
   else if (req.url.startsWith('/css/')) {
     const filePath = path.join(__dirname, req.url);
     fs.readFile(filePath, (err, data) => {
       if (err) {
         res.writeHead(404);
-        res.end('CSS файл не знайдено');
+        res.end('Файл не знайдено');
       } else {
         res.writeHead(200, { 'Content-Type': 'text/css' });
         res.end(data);
       }
     });
   }
-  // Обробка JS файлів
+  // Обробка статичних файлів JS
   else if (req.url.startsWith('/js/')) {
     const filePath = path.join(__dirname, req.url);
     fs.readFile(filePath, (err, data) => {
       if (err) {
         res.writeHead(404);
-        res.end('JS файл не знайдено');
+        res.end('Файл не знайдено');
       } else {
         res.writeHead(200, { 'Content-Type': 'application/javascript' });
-        res.end(data);
-      }
-    });
-  }
-  // Обробка favicon
-  else if (req.url === '/favicon.svg') {
-    fs.readFile(path.join(__dirname, 'favicon.svg'), (err, data) => {
-      if (err) {
-        res.writeHead(404);
-        res.end('Favicon не знайдено');
-      } else {
-        res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
         res.end(data);
       }
     });
@@ -59,7 +53,8 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const PORT = 8000;
+const PORT = 8443;
 server.listen(PORT, () => {
-  console.log(`Сервер запущено на http://localhost:${PORT}`);
+  console.log(`HTTPS сервер запущено на https://localhost:${PORT}`);
+  console.log('Примітка: Браузер покаже попередження про небезпечний сертифікат - це нормально для локальної розробки');
 });

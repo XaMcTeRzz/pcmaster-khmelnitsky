@@ -1,0 +1,4 @@
+# Принудительное перенаправление HTTP -> HTTPS
+/*    /index.html   200
+http://yourdomain.com/*    https://yourdomain.com/:splat    301!
+http://www.yourdomain.com/*    https://yourdomain.com/:splat    301!
