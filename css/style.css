@@ -180,7 +180,7 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 155px 0 80px; /* Увеличено на 35px для тонкого баннера */
+    padding: 160px 0 80px; /* Увеличено для fixed баннера 40px */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     overflow: hidden;
@@ -564,32 +564,20 @@ body {
     background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
-/* Thin Discount Banner */
+/* Static Discount Banner */
 .thin-discount-banner {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    height: 35px;
+    height: 40px;
     display: flex;
     align-items: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.thin-discount-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+    position: fixed;
+    top: 80px; /* Под навигацией */
+    left: 0;
+    right: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-    animation: shine 4s infinite;
-}
-
-@keyframes shine {
-    0% { left: -100%; }
-    100% { left: 100%; }
+    z-index: 999;
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .thin-discount-content {
@@ -598,23 +586,15 @@ body {
     justify-content: center;
     gap: 12px;
     color: white;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-align: center;
-    position: relative;
-    z-index: 2;
     width: 100%;
 }
 
 .thin-discount-content i {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #fbbf24;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
 }
 
 .thin-discount-content span {
@@ -624,7 +604,8 @@ body {
 
 @media (max-width: 768px) {
     .thin-discount-banner {
-        height: 32px;
+        height: 36px;
+        top: 70px; /* На мобильных header меньше */
     }
     
     .thin-discount-content {
@@ -633,13 +614,14 @@ body {
     }
     
     .thin-discount-content i {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
 }
 
 @media (max-width: 480px) {
     .thin-discount-banner {
-        height: 30px;
+        height: 32px;
+        top: 70px;
     }
     
     .thin-discount-content {
@@ -649,7 +631,7 @@ body {
     }
     
     .thin-discount-content i {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -1110,9 +1092,9 @@ body {
     
     /* Remove mobile phone bar - it was interfering with mobile UX */
     
-    /* Adjust hero section for mobile with thin banner */
+    /* Adjust hero section for mobile with fixed banner */
     .hero {
-        padding: 162px 0 40px; /* Увеличено для тонкого баннера */
+        padding: 166px 0 40px; /* Увеличено для fixed баннера */
         background: #f8fafc;
     }
     
