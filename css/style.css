@@ -200,6 +200,7 @@ body {
     line-height: 1.2;
     word-break: keep-all;
     hyphens: none;
+    text-align: center;
 }
 
 .hero-subtitle {
