@@ -1,11 +1,16 @@
-# Netlify redirects for SEO
-/home              /              301
-/index             /              301
-/index.html        /              301
+# Redirect www to non-www
+https://www.pcmaster-khmelnytskyi.xyz/* https://pcmaster-khmelnytskyi.xyz/:splat 301!
 
-# Redirect to HTTPS
-http://pcmaster-khmelnytskyi.xyz/*    https://pcmaster-khmelnytskyi.xyz/:splat    301!
-http://www.pcmaster-khmelnytskyi.xyz/*    https://pcmaster-khmelnytskyi.xyz/:splat    301!
+# Force HTTPS
+http://pcmaster-khmelnytskyi.xyz/* https://pcmaster-khmelnytskyi.xyz/:splat 301!
+http://www.pcmaster-khmelnytskyi.xyz/* https://pcmaster-khmelnytskyi.xyz/:splat 301!
 
-# Canonical redirects
-https://www.pcmaster-khmelnytskyi.xyz/*    https://pcmaster-khmelnytskyi.xyz/:splat    301!
+# SEO-friendly redirects for sections
+/services /index.html#services 301
+/contact /index.html#contact 301  
+/about /index.html#about 301
+/услуги /index.html#services 301
+/контакты /index.html#contact 301
+
+# Handle missing files gracefully
+/* /index.html 200

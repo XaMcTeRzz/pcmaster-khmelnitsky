@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="1100" cy="100" r="100" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="150" cy="550" r="75" fill="rgba(255,255,255,0.05)"/>
+  
+  <!-- Main content -->
+  <g transform="translate(600, 315)">
+    <!-- Computer icon -->
+    <text x="0" y="-150" text-anchor="middle" font-size="120" fill="white">💻</text>
+    
+    <!-- Title -->
+    <text x="0" y="-80" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white">PC-Master</text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="-20" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" fill="white">Хмельницький</text>
+    
+    <!-- Services -->
+    <text x="0" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" fill="rgba(255,255,255,0.9)">Ремонт • Налаштування • Гарантія</text>
+    
+    <!-- Phone -->
+    <text x="0" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.8)">📞 097 609 73 10</text>
+  </g>
+</svg>

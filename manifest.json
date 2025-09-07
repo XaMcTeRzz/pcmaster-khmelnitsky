@@ -1,0 +1,22 @@
+{
+  "name": "PC-Master Хмельницький - Комп'ютерний майстер",
+  "short_name": "PC-Master КМ",
+  "description": "Професіональне налаштування програм та ремонт ПК в Хмельницькому",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "uk",
+  "dir": "ltr",
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7"
+}
