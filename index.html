@@ -246,6 +246,14 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     
+    <!-- GitHub Pages SSL Fix -->
+    <script>
+        // Force HTTPS redirect for GitHub Pages
+        if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+            location.replace('https:' + window.location.href.substring(window.location.protocol.length));
+        }
+    </script>
+    
     <!-- Favicon and Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon.svg">
     <link rel="icon" type="image/svg+xml" sizes="32x32" href="favicon.svg">
