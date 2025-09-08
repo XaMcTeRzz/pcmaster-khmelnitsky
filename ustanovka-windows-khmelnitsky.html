@@ -65,25 +65,31 @@
         </nav>
     </header>
 
-    <main class="container" style="padding: 100px 20px 50px;">
-        <div class="hero-content" style="text-align: center; margin-bottom: 50px;">
-            <h1>💻 Встановлення Windows Хмельницький</h1>
-            <p class="hero-subtitle">Ліцензійне встановлення Windows 10/11 з усіма драйверами та програмами. Швидко, професійно, з гарантією!</p>
-            <div class="hero-buttons" style="justify-content: center; margin-top: 30px;">
-                <a href="tel:+380976097310" class="btn btn-primary">
-                    <i class="fas fa-phone"></i>
-                    Замовити встановлення
-                </a>
-                <a href="viber://chat?number=%2B380976097310" class="btn btn-secondary">
-                    <i class="fab fa-viber"></i>
-                    Написати в Viber
-                </a>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">💻 Встановлення Windows Хмельницький</h1>
+                    <p class="hero-subtitle">Ліцензійне встановлення Windows 10/11 з усіма драйверами та програмами. Швидко, професійно, з гарантією!</p>
+                    <div class="hero-buttons">
+                        <a href="tel:+380976097310" class="btn btn-primary">
+                            <i class="fas fa-phone"></i>
+                            Замовити встановлення
+                        </a>
+                        <a href="viber://chat?number=%2B380976097310" class="btn btn-secondary">
+                            <i class="fab fa-viber"></i>
+                            Написати в Viber
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
         <section class="services">
-            <h2>Які версії Windows встановлюємо в Хмельницькому</h2>
-            <div class="services-grid">
+            <div class="container">
+                <h2 class="section-title">Які версії Windows встановлюємо в Хмельницькому</h2>
+                <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fab fa-windows"></i>
@@ -167,11 +173,13 @@
                         <li>Налаштування браузерів</li>
                     </ul>
                 </div>
+                </div>
             </div>
         </section>
 
         <section class="pricing">
-            <h2>Ціни на встановлення Windows у Хмельницькому</h2>
+            <div class="container">
+                <h2 class="section-title">Ціни на встановлення Windows у Хмельницькому</h2>
             <div class="pricing-grid">
                 <div class="price-card">
                     <h3>Windows 10/11 Базова</h3>
@@ -194,9 +202,11 @@
                     <p>Виконання за 2-3 години</p>
                 </div>
             </div>
+            </div>
         </section>
 
         <section class="about">
+            <div class="container">
             <div class="about-content">
                 <div class="about-text">
                     <h2>Переваги встановлення Windows у нас</h2>
@@ -233,10 +243,12 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </section>
 
         <section class="contact">
+            <div class="container">
             <div class="contact-content">
                 <div class="contact-info">
                     <h2>Замовити встановлення Windows</h2>
@@ -299,6 +311,28 @@
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Floating Contact Buttons -->
+    <div class="mobile-floating-contacts" role="navigation" aria-label="Швидкі контакти">
+        <a href="tel:+380976097310" class="floating-phone-btn" aria-label="Зателефонувати за номером 097 609 73 10">
+            <i class="fas fa-phone" aria-hidden="true"></i>
+            <span>Зателефонувати</span>
+        </a>
+        <div class="floating-social-links">
+            <a href="viber://chat?number=%2B380976097310" 
+               class="floating-social-link floating-viber-link" 
+               title="Написати в Viber" 
+               aria-label="Зв'язатися через Viber">
+                <i class="fab fa-viber" aria-hidden="true"></i>
+            </a>
+            <a href="https://t.me/+380976097310" 
+               class="floating-social-link floating-telegram-link" 
+               title="Написати в Telegram" 
+               aria-label="Зв'язатися через Telegram">
+                <i class="fab fa-telegram-plane" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>

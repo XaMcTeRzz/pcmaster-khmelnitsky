@@ -65,25 +65,31 @@
         </nav>
     </header>
 
-    <main class="container" style="padding: 100px 20px 50px;">
-        <div class="hero-content" style="text-align: center; margin-bottom: 50px;">
-            <h1>🔧 Ремонт ноутбуків Хмельницький</h1>
-            <p class="hero-subtitle">Професійний ремонт ноутбуків всіх марок з виїздом на дім. Швидко, якісно, з гарантією!</p>
-            <div class="hero-buttons" style="justify-content: center; margin-top: 30px;">
-                <a href="tel:+380976097310" class="btn btn-primary">
-                    <i class="fas fa-phone"></i>
-                    Викликати майстра
-                </a>
-                <a href="viber://chat?number=%2B380976097310" class="btn btn-secondary">
-                    <i class="fab fa-viber"></i>
-                    Написати в Viber
-                </a>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">🔧 Ремонт ноутбуків Хмельницький</h1>
+                    <p class="hero-subtitle">Професійний ремонт ноутбуків всіх марок з виїздом на дім. Швидко, якісно, з гарантією!</p>
+                    <div class="hero-buttons">
+                        <a href="tel:+380976097310" class="btn btn-primary">
+                            <i class="fas fa-phone"></i>
+                            Викликати майстра
+                        </a>
+                        <a href="viber://chat?number=%2B380976097310" class="btn btn-secondary">
+                            <i class="fab fa-viber"></i>
+                            Написати в Viber
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
         <section class="services">
-            <h2>Які ноутбуки ремонтуємо в Хмельницькому</h2>
-            <div class="services-grid">
+            <div class="container">
+                <h2 class="section-title">Які ноутбуки ремонтуємо в Хмельницькому</h2>
+                <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-laptop"></i>
@@ -167,11 +173,13 @@
                         <li>Доступні ціни</li>
                     </ul>
                 </div>
+                </div>
             </div>
         </section>
 
         <section class="pricing">
-            <h2>Ціни на ремонт ноутбуків у Хмельницькому</h2>
+            <div class="container">
+                <h2 class="section-title">Ціни на ремонт ноутбуків у Хмельницькому</h2>
             <div class="pricing-grid">
                 <div class="price-card">
                     <h3>Діагностика</h3>
@@ -194,9 +202,11 @@
                     <p>Оригінальна клавіатура + встановлення</p>
                 </div>
             </div>
+            </div>
         </section>
 
         <section class="about">
+            <div class="container">
             <div class="about-content">
                 <div class="about-text">
                     <h2>Чому обирають наш ремонт ноутбуків у Хмельницькому?</h2>
@@ -233,10 +243,12 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </section>
 
         <section class="contact">
+            <div class="container">
             <div class="contact-content">
                 <div class="contact-info">
                     <h2>Зв'язатися з нами</h2>
@@ -272,6 +284,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </section>
 
@@ -299,6 +312,28 @@
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Floating Contact Buttons -->
+    <div class="mobile-floating-contacts" role="navigation" aria-label="Швидкі контакти">
+        <a href="tel:+380976097310" class="floating-phone-btn" aria-label="Зателефонувати за номером 097 609 73 10">
+            <i class="fas fa-phone" aria-hidden="true"></i>
+            <span>Зателефонувати</span>
+        </a>
+        <div class="floating-social-links">
+            <a href="viber://chat?number=%2B380976097310" 
+               class="floating-social-link floating-viber-link" 
+               title="Написати в Viber" 
+               aria-label="Зв'язатися через Viber">
+                <i class="fab fa-viber" aria-hidden="true"></i>
+            </a>
+            <a href="https://t.me/+380976097310" 
+               class="floating-social-link floating-telegram-link" 
+               title="Написати в Telegram" 
+               aria-label="Зв'язатися через Telegram">
+                <i class="fab fa-telegram-plane" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
