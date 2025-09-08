@@ -40,4 +40,32 @@
         <priority>0.9</priority>
         <mobile:mobile/>
     </url>
+    <url>
+        <loc>https://pcmaster-khmelnytskyi.xyz/nastroyka-kompyutera-khmelnitskiy.html</loc>
+        <lastmod>2025-01-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <mobile:mobile/>
+    </url>
+    <url>
+        <loc>https://pcmaster-khmelnytskyi.xyz/nalashtuyvannya-kompyutera-khmelnytskyy.html</loc>
+        <lastmod>2025-01-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <mobile:mobile/>
+    </url>
+    <url>
+        <loc>https://pcmaster-khmelnytskyi.xyz/udalenie-virusov-khmelnitskiy.html</loc>
+        <lastmod>2025-01-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <mobile:mobile/>
+    </url>
+    <url>
+        <loc>https://pcmaster-khmelnytskyi.xyz/kompyuternaya-pomosch-khmelnitskiy.html</loc>
+        <lastmod>2025-01-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <mobile:mobile/>
+    </url>
 </urlset>
