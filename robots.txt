@@ -18,6 +18,12 @@ Disallow: /TELEGRAM_SETUP.md
 Disallow: /.git/
 Disallow: /.gitignore
 
+# Тестовые и служебные страницы
+Disallow: /menu.html
+Disallow: /quick-bot-test.html
+Disallow: /test-telegram-bot.html
+Disallow: /get-chat-id.html
+
 # Рекомендации для основных поисковиков
 User-agent: Googlebot
 Allow: /
