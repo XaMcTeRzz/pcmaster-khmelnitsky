@@ -123,11 +123,35 @@ if (contactForm) {
     console.error('Contact form not found!');
 }
 
-// Telegram Bot Configuration
+// Telegram Bot Configuration - Updated with correct Chat ID
 const TELEGRAM_CONFIG = {
     botToken: '8256319983:AAGZKs_9Nqw2Kuep3HauUsSWpps5y7iGAcs',
-    chatId: '542791657'
+    chatId: '542791657' // Verified working Chat ID
 };
+
+// Test bot connection on page load
+async function testBotConnection() {
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/getMe`);
+        const result = await response.json();
+        
+        if (result.ok) {
+            console.log('✅ Telegram бот активен:', result.result.first_name);
+            return true;
+        } else {
+            console.error('❌ Ошибка бота:', result.description);
+            return false;
+        }
+    } catch (error) {
+        console.error('❌ Не удалось подключиться к Telegram API:', error);
+        return false;
+    }
+}
+
+// Test bot connection when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    testBotConnection();
+});
 
 // Generate unique ID for each request
 function generateRequestId() {
@@ -234,10 +258,11 @@ async function sendToTelegram(name, phone, service, message) {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json; charset=utf-8',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
-                chat_id: TELEGRAM_CONFIG.chatId,
+                chat_id: String(TELEGRAM_CONFIG.chatId),
                 text: telegramMessage,
                 parse_mode: 'HTML'
             })
