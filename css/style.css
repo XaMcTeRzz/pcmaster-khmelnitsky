@@ -112,6 +112,7 @@ body {
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+    overflow-x: hidden;
 }
 
 .navbar {
@@ -183,7 +184,7 @@ body {
     padding: 120px 0 80px; /* Уменьшено, так как баннер удален */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .hero .container {
@@ -286,6 +287,7 @@ body {
 .hero-image {
     text-align: center;
     position: relative;
+    overflow: hidden;
 }
 
 /* Services Grid Hero Layout */
@@ -299,7 +301,7 @@ body {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 20px;
-    padding: 40px;
+    padding: 20px;
 }
 
 /* Service Blocks */
@@ -315,7 +317,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 15px;
+    padding: 15px 10px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
@@ -349,22 +351,22 @@ body {
 /* Beautiful hover effects for each block */
 .block-1:hover {
     box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-5px);
 }
 
 .block-2:hover {
     box-shadow: 0 12px 40px rgba(168, 85, 247, 0.4);
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-5px);
 }
 
 .block-3:hover {
     box-shadow: 0 12px 40px rgba(34, 197, 94, 0.4);
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-5px);
 }
 
 .block-4:hover {
     box-shadow: 0 12px 40px rgba(239, 68, 68, 0.4);
-    transform: translateY(-5px) scale(1.02);
+    transform: translateY(-5px);
 }
 
 /* Block Content */
@@ -527,6 +529,7 @@ body {
 .about {
     padding: 80px 0;
     background: #f8fafc;
+    overflow-x: hidden;
 }
 
 .about-content {
@@ -591,6 +594,7 @@ body {
 .pricing {
     padding: 80px 0;
     background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    overflow-x: hidden;
 }
 
 /* Discount Line in Pricing Section */
@@ -674,6 +678,7 @@ body {
 .contact {
     padding: 80px 0;
     background: #f8fafc;
+    overflow-x: hidden;
 }
 
 .contact-content {
@@ -781,6 +786,7 @@ body {
     background: #1e293b;
     color: white;
     padding: 3rem 0 1rem;
+    overflow-x: hidden;
 }
 
 .footer-content {
@@ -903,6 +909,10 @@ body {
         position: relative;
     }
     
+    .container {
+        overflow-x: hidden;
+    }
+    
     /* Global text overflow prevention */
     * {
         word-wrap: break-word !important;
@@ -952,10 +962,12 @@ body {
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
         padding: 2rem 0;
         margin-left: 0;
+        overflow-x: hidden;
     }
 
     .nav-menu.active {
         left: 0;
+        overflow-x: hidden;
     }
 
     .hamburger {
@@ -1004,6 +1016,7 @@ body {
         flex-direction: column;
         gap: 15px;
         align-items: flex-end;
+        overflow-x: hidden;
     }
     
     .floating-phone-btn {
@@ -1195,6 +1208,7 @@ body {
         background: rgba(59, 130, 246, 0.05);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+        overflow: hidden;
     }
     
     .mobile-service-item i {
@@ -1232,7 +1246,7 @@ body {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
-        overflow: visible;
+        overflow: hidden;
         margin: 0;
         display: flex;
         flex-direction: column;
@@ -1292,7 +1306,7 @@ body {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
-        overflow: visible;
+        overflow: hidden;
         margin: 0;
         display: flex;
         flex-direction: column;
@@ -1521,6 +1535,7 @@ body {
         white-space: normal !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
+        overflow-x: hidden !important;
     }
     
     html, body {
@@ -1602,6 +1617,7 @@ body {
         bottom: 15px;
         right: 15px;
         gap: 12px;
+        overflow-x: hidden;
     }
     
     .floating-phone-btn {
@@ -1629,7 +1645,7 @@ body {
     
     .mobile-phone-content {
         font-size: 0.9rem;
-        padding-left: 2cm;
+        padding-left: 20px;
     }
     
     .mobile-social-icons {
@@ -1807,6 +1823,7 @@ body {
         white-space: normal !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
+        overflow-x: hidden !important;
     }
     
     html, body {
@@ -1916,6 +1933,7 @@ body {
         bottom: 12px;
         right: 12px;
         gap: 10px;
+        overflow-x: hidden;
     }
 }
 
@@ -1946,7 +1964,7 @@ body {
     justify-content: flex-start;
     font-size: 1rem;
     font-weight: 600;
-    padding-left: 2cm;
+    padding-left: 20px;
 }
 
 .mobile-social-icons {
