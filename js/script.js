@@ -216,9 +216,20 @@ async function sendToTelegram(name, phone, service, message) {
         showNotification('Відправляємо заявку...', 'info');
         
         console.log('Sending to Telegram:', {
+            bot_token: TELEGRAM_CONFIG.botToken.substring(0, 10) + '...',
             chat_id: TELEGRAM_CONFIG.chatId,
-            message: telegramMessage
+            message_length: telegramMessage.length,
+            url: url
         });
+        
+        // Проверяем конфигурацию перед отправкой
+        if (!TELEGRAM_CONFIG.botToken || TELEGRAM_CONFIG.botToken.length < 20) {
+            throw new Error('Неправильный Bot Token');
+        }
+        
+        if (!TELEGRAM_CONFIG.chatId || TELEGRAM_CONFIG.chatId.length < 3) {
+            throw new Error('Неправильный Chat ID');
+        }
         
         const response = await fetch(url, {
             method: 'POST',
@@ -274,11 +285,46 @@ async function sendToTelegram(name, phone, service, message) {
                 console.log('❌ Netlify Function недоступна:', functionError);
             }
         } else {
-            throw new Error(`Telegram API error: ${result.description || 'Unknown error'}`);
+            console.error('Telegram API error:', result);
+            let errorMessage = '❌ Помилка відправки заявки';
+            
+            // Specific error handling with Ukrainian messages
+            if (result.error_code === 403) {
+                errorMessage = '❌ Помилка доступу до Telegram Bot. Можливо, бот заблокований або не активований. Будь ласка, зателефонуйте: +38 (097) 609-73-10';
+            } else if (result.error_code === 400) {
+                if (result.description && result.description.includes('chat not found')) {
+                    errorMessage = '❌ Неправильний Chat ID в налаштуваннях бота. Зверніться до адміністратора сайту або зателефонуйте: +38 (097) 609-73-10';
+                } else if (result.description && result.description.includes('bot was blocked')) {
+                    errorMessage = '❌ Бот заблокований користувачем. Зверніться до адміністратора або зателефонуйте: +38 (097) 609-73-10';
+                } else {
+                    errorMessage = '❌ Помилка у даних заявки. Перевірте правильність введеної інформації або зателефонуйте: +38 (097) 609-73-10';
+                }
+            } else if (result.error_code === 401) {
+                errorMessage = '❌ Помилка авторизації Telegram Bot. Зверніться до адміністратора сайту або зателефонуйте: +38 (097) 609-73-10';
+            } else if (result.description) {
+                errorMessage = `❌ Помилка: ${result.description}. Зателефонуйте напряму: +38 (097) 609-73-10`;
+            } else {
+                errorMessage = '❌ Не вдалося відправити заявку через технічні проблеми. Зателефонуйте прямо зараз: +38 (097) 609-73-10';
+            }
+            
+            showNotification(errorMessage, 'error', 10000);
         }
     } catch (error) {
         console.error('Error sending to Telegram:', error);
-        showNotification('❌ Помилка відправки. Будь ласка, зателефонуйте: +38 (097) 609-73-10', 'error');
+        
+        let errorMessage = '❌ Помилка відправки';
+        
+        if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+            errorMessage = '❌ Помилка мережі. Перевірте підключення до інтернету або спробуйте пізніше. Зателефонуйте: +38 (097) 609-73-10';
+        } else if (error.message.includes('CORS')) {
+            errorMessage = '❌ Помилка безпеки браузера. Зателефонуйте напряму: +38 (097) 609-73-10';
+        } else if (error.message.includes('timeout')) {
+            errorMessage = '❌ Перевищено час очікування відповіді. Спробуйте ще раз або зателефонуйте: +38 (097) 609-73-10';
+        } else {
+            errorMessage = `❌ Неочікувана помилка: ${error.message}. Зателефонуйте напряму: +38 (097) 609-73-10`;
+        }
+        
+        showNotification(errorMessage, 'error', 12000);
     }
 }
 
