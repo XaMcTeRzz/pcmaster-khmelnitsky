@@ -241,6 +241,15 @@ body {
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
 }
 
+/* Fix for gradient background buttons */
+.btn-primary[style*="linear-gradient"] {
+    color: white !important;
+}
+
+.btn-primary[style*="linear-gradient"]:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
 .btn-secondary {
     background: rgba(255, 255, 255, 0.2);
     color: white;
@@ -252,8 +261,26 @@ body {
     transform: translateY(-2px);
 }
 
+/* Fix for gradient background secondary buttons */
+.btn-secondary[style*="linear-gradient"] {
+    color: white !important;
+}
+
+.btn-secondary[style*="linear-gradient"]:hover {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
 .btn i {
     margin-right: 0.5rem;
+}
+
+/* Fix gradient button text color globally */
+.btn[style*="linear-gradient"] {
+    color: white !important;
+}
+
+.btn[style*="linear-gradient"]:hover {
+    color: rgba(255, 255, 255, 0.95) !important;
 }
 
 .hero-image {
