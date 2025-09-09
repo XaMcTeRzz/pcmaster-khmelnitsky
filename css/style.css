@@ -2067,15 +2067,222 @@ a.service-block:hover {
     color: inherit;
 }
 
+/* Unified Landing Page Header */
+.landing-header {
+    background: white;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
 
+.landing-header .navbar {
+    padding: 1rem 0;
+}
 
+.landing-header .navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.landing-header .nav-brand {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3b82f6;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
 
+.landing-header .nav-brand:hover {
+    opacity: 0.8;
+    text-decoration: none;
+    color: #3b82f6;
+}
 
+.landing-header .nav-brand i {
+    margin-right: 0.5rem;
+    font-size: 2rem;
+}
 
+.landing-header .nav-phone {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 
+.landing-header .phone-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: #3b82f6;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: rgba(59, 130, 246, 0.1);
+    transition: all 0.3s ease;
+}
 
+.landing-header .phone-link:hover {
+    background: rgba(59, 130, 246, 0.2);
+    transform: translateY(-1px);
+}
 
+.landing-header .phone-link i {
+    font-size: 1rem;
+}
 
+.landing-header .social-links {
+    display: flex;
+    gap: 0.5rem;
+}
 
+.landing-header .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
 
+.landing-header .viber-link {
+    background: linear-gradient(135deg, #665CAC 0%, #7D4698 100%);
+    color: white;
+}
+
+.landing-header .viber-link:hover {
+    background: linear-gradient(135deg, #7D4698 0%, #665CAC 100%);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(125, 70, 152, 0.4);
+}
+
+.landing-header .telegram-link {
+    background: linear-gradient(135deg, #0088cc 0%, #229ED9 100%);
+    color: white;
+}
+
+.landing-header .telegram-link:hover {
+    background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(34, 158, 217, 0.4);
+}
+
+/* Unified Landing Page Hero */
+.landing-hero {
+    padding: 120px 0 80px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    overflow: hidden;
+    position: relative;
+}
+
+.landing-hero .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.landing-hero .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+}
+
+.landing-hero .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    word-break: keep-all;
+    hyphens: none;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.landing-hero .hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+}
+
+.landing-hero .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Responsive adjustments for unified design */
+@media (max-width: 768px) {
+    .landing-header .nav-brand {
+        font-size: 1.2rem;
+    }
+    
+    .landing-header .nav-brand i {
+        font-size: 1.5rem;
+        margin-right: 0.3rem;
+    }
+    
+    .landing-hero {
+        padding: 160px 0 40px;
+    }
+    
+    .landing-hero .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .landing-hero .hero-content {
+        align-items: center;
+    }
+    
+    .landing-hero .hero-title {
+        font-size: 1.8rem;
+        line-height: 1.3;
+    }
+    
+    .landing-hero .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        max-width: 100%;
+    }
+    
+    .landing-hero .hero-buttons {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-header .nav-brand span {
+        display: none;
+    }
+    
+    .landing-header .nav-brand i {
+        margin-right: 0;
+        font-size: 1.8rem;
+    }
+    
+    .landing-hero .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .landing-hero .hero-subtitle {
+        font-size: 1rem;
+    }
+}
