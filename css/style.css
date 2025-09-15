@@ -123,6 +123,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .nav-brand {
@@ -149,16 +150,17 @@ body {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
-    margin-left: 6.7rem;
+    gap: 1.5rem;
+    margin-left: 0;
 }
 
 .nav-menu a {
     text-decoration: none;
     color: #4a5568;
     font-weight: 500;
-    font-size: 1.18125rem;
+    font-size: 1rem;
     transition: color 0.3s ease;
+    white-space: nowrap;
 }
 
 .nav-menu a:hover {
