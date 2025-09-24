@@ -9,6 +9,7 @@
     "build": "echo 'No build required for static site'"
   },
   "dependencies": {
+    "puppeteer": "^24.22.3",
     "web-push": "^3.6.7"
   },
   "devDependencies": {
