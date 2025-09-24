@@ -15,7 +15,6 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/icon-fallbacks.css">
-    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -38,10 +37,87 @@
         "serviceType": "Computer Repair"
     }
     </script>
+    
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Як довго тримаєте гарантію на ремонт?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Надаємо гарантію до 12 місяців на всі види ремонтних робіт. Термін гарантії залежить від виду виконаних робіт та встановлених комплектуючих."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Чи є у вас виїзд майстра додому?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Так, наші майстри виїжджають за вказаною адресою в межах міста Хмельницького. Вартість виїзду уточнюйте у менеджера."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Чи використовуєте оригінальні запчастини?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Працюємо тільки з перевіреними постачальниками та використовуємо якісні комплектуючі. Можемо встановити як оригінальні, так і сумісні деталі за вашим вибором."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- HowTo Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "Як відбувається процес ремонту комп'ютера",
+        "description": "Покрокова інструкція з ремонту комп'ютера у Хмельницькому",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Діагностика",
+                "text": "Проводимо безкоштовну діагностику для виявлення несправності.",
+                "image": "https://pcmaster-khmelnytskyi.xyz/images/diagnostika.jpg"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Оцінка вартості",
+                "text": "Після діагностики надаємо точний розрахунок вартості ремонту.",
+                "image": "https://pcmaster-khmelnytskyi.xyz/images/ocinka.jpg"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Ремонт",
+                "text": "Після підтвердження, приступаємо до ремонту з використанням якісних комплектуючих.",
+                "image": "https://pcmaster-khmelnytskyi.xyz/images/remont.jpg"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Тестування",
+                "text": "Після ремонту проводимо тестування роботи пристрою.",
+                "image": "https://pcmaster-khmelnytskyi.xyz/images/testuvannya.jpg"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Видача",
+                "text": "Повертаємо відремонтований пристрій з гарантією на виконані роботи.",
+                "image": "https://pcmaster-khmelnytskyi.xyz/images/vydacha.jpg"
+            }
+        ]
+    }
+    </script>
 </head>
 <body style="overflow-x: hidden;">
     <header class="landing-header">
         <nav class="navbar">
+{{ ... }}
             <div class="container">
                 <a href="/" class="nav-brand">
                     <i class="fas fa-laptop-code"></i>
@@ -166,8 +242,52 @@
             </div>
         </section>
 
+        <!-- FAQ Section -->
+        <section class="faq-section" style="padding: 60px 0; background: #f9f9f9;">
+            <div class="container">
+                <h2 class="section-title">Поширені запитання</h2>
+                <div class="faq-container" style="max-width: 800px; margin: 0 auto;">
+                    <div class="faq-item" style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                        <button class="faq-question" style="width: 100%; text-align: left; padding: 15px 20px; background: #fff; border: none; font-size: 18px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            Як довго тримаєте гарантію на ремонт?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer" style="padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fff;">
+                            <p style="padding: 20px 0; margin: 0; border-top: 1px solid #f0f0f0;">
+                                Надаємо гарантію до 12 місяців на всі види ремонтних робіт. Термін гарантії залежить від виду виконаних робіт та встановлених комплектуючих.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                        <button class="faq-question" style="width: 100%; text-align: left; padding: 15px 20px; background: #fff; border: none; font-size: 18px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            Чи є у вас виїзд майстра додому?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer" style="padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fff;">
+                            <p style="padding: 20px 0; margin: 0; border-top: 1px solid #f0f0f0;">
+                                Так, наші майстри виїжджають за вказаною адресою в межах міста Хмельницького. Вартість виїзду уточнюйте у менеджера за телефоном.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item" style="margin-bottom: 20px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                        <button class="faq-question" style="width: 100%; text-align: left; padding: 15px 20px; background: #fff; border: none; font-size: 18px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                            Чи використовуєте оригінальні запчастини?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer" style="padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fff;">
+                            <p style="padding: 20px 0; margin: 0; border-top: 1px solid #f0f0f0;">
+                                Працюємо тільки з перевіреними постачальниками та використовуємо якісні комплектуючі. Можемо встановити як оригінальні, так і сумісні деталі за вашим вибором.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Why Choose Us -->
-        <section class="about">
+        <section class="about" style="padding-top: 40px;">
             <div class="container">
                 <h2 class="section-title">Чому обирають PC-Master?</h2>
                 <div class="advantages">
@@ -252,6 +372,49 @@
             
             document.body.removeChild(testElement);
         }, 100);
+    </script>
+    <script>
+        // FAQ Accordion Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('i');
+                    
+                    // Close all other answers
+                    document.querySelectorAll('.faq-answer').forEach(item => {
+                        if (item !== answer && item.style.maxHeight) {
+                            item.style.maxHeight = null;
+                            item.previousElementSibling.querySelector('i').classList.remove('fa-chevron-up');
+                            item.previousElementSibling.querySelector('i').classList.add('fa-chevron-down');
+                        }
+                    });
+                    
+                    // Toggle current answer
+                    if (answer.style.maxHeight) {
+                        answer.style.maxHeight = null;
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    } else {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    }
+                });
+            });
+            
+            // Open first FAQ by default
+            const firstFaq = document.querySelector('.faq-question');
+            if (firstFaq) {
+                const firstAnswer = firstFaq.nextElementSibling;
+                const firstIcon = firstFaq.querySelector('i');
+                firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 'px';
+                firstIcon.classList.remove('fa-chevron-down');
+                firstIcon.classList.add('fa-chevron-up');
+            }
+        });
     </script>
 </body>
 </html>
