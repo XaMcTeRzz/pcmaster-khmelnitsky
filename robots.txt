@@ -1,0 +1,43 @@
+User-agent: *
+Allow: /
+
+# Основные страницы
+Allow: /index.html
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Sitemap
+Sitemap: https://pcmaster-khmelnytskyi.xyz/sitemap.xml
+
+# Запрещаем индексацию служебных файлов
+Disallow: /*.log
+Disallow: /README.md
+Disallow: /HOSTING_GUIDE.md
+Disallow: /TELEGRAM_SETUP.md
+Disallow: /.git/
+Disallow: /.gitignore
+
+# Тестовые и служебные страницы
+Disallow: /menu.html
+Disallow: /quick-bot-test.html
+Disallow: /test-telegram-bot.html
+Disallow: /get-chat-id.html
+
+# Рекомендации для основных поисковиков
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 2
+
+# Специальные настройки для украинских поисковиков
+User-agent: UkrBot
+Allow: /
+Crawl-delay: 1

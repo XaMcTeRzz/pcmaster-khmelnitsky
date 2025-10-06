@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест Telegram Бота</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .config-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+        .config-section h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+        }
+        .step h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Тест Telegram Бота PC-Master</h1>
+        
+        <div class="config-section">
+            <h3>📋 Текущая конфигурация:</h3>
+            <p><strong>Bot Token:</strong> <code id="currentBotToken">Загрузка...</code></p>
+            <p><strong>Chat ID:</strong> <code id="currentChatId">Загрузка...</code></p>
+        </div>
+
+        <div class="step">
+            <h4>🔧 Шаг 1: Проверьте токен бота</h4>
+            <p>Перейдите по ссылке и убедитесь, что бот активен:</p>
+            <a id="botCheckLink" href="#" target="_blank">Проверить бота</a>
+        </div>
+
+        <div class="step">
+            <h4>📱 Шаг 2: Проверьте Chat ID</h4>
+            <p>1. Напишите боту сообщение: <strong>/start</strong></p>
+            <p>2. Перейдите по ссылке для получения Chat ID:</p>
+            <a id="chatIdLink" href="#" target="_blank">Получить Chat ID</a>
+        </div>
+
+        <div class="step">
+            <h4>✉️ Шаг 3: Тестовая отправка</h4>
+            <p>Заполните форму ниже для тестовой отправки:</p>
+        </div>
+
+        <form id="testForm">
+            <div class="form-group">
+                <label for="testName">Имя:</label>
+                <input type="text" id="testName" value="Тест Петрович" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="testPhone">Телефон:</label>
+                <input type="tel" id="testPhone" value="+380971234567" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="testMessage">Сообщение:</label>
+                <textarea id="testMessage" rows="3">Тестовое сообщение для проверки работы бота</textarea>
+            </div>
+            
+            <button type="submit">🚀 Отправить тест</button>
+        </form>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        // Получаем конфигурацию из основного скрипта
+        const TELEGRAM_CONFIG = {
+            botToken: '8256319983:AAGZKs_9Nqw2Kuep3HauUsSWpps5y7iGAcs',
+            chatId: '542791657'
+        };
+
+        // Отображаем текущую конфигурацию
+        document.getElementById('currentBotToken').textContent = TELEGRAM_CONFIG.botToken;
+        document.getElementById('currentChatId').textContent = TELEGRAM_CONFIG.chatId;
+        
+        // Устанавливаем ссылки для проверки
+        document.getElementById('botCheckLink').href = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/getMe`;
+        document.getElementById('chatIdLink').href = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/getUpdates`;
+
+        // Функция показа результата
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = `result ${type}`;
+            resultDiv.innerHTML = message;
+            resultDiv.style.display = 'block';
+        }
+
+        // Функция тестовой отправки
+        async function testTelegramBot(name, phone, message) {
+            const testMessage = `
+🧪 <b>ТЕСТОВОЕ СООБЩЕНИЕ</b> 🧪
+
+👤 <b>Имя:</b> ${name}
+📱 <b>Телефон:</b> ${phone}
+💬 <b>Сообщение:</b> ${message}
+
+⏰ <b>Время:</b> ${new Date().toLocaleString('uk-UA')}
+🔬 <b>Статус:</b> Тест системы отправки
+
+✅ Если вы видите это сообщение - бот работает корректно!
+`;
+
+            const url = `https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/sendMessage`;
+            
+            try {
+                showResult('⏳ Отправляем тестовое сообщение...', 'info');
+                
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CONFIG.chatId,
+                        text: testMessage,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.ok) {
+                    showResult(`
+                        ✅ <strong>УСПЕХ!</strong> Сообщение отправлено!<br>
+                        📋 Message ID: ${result.result.message_id}<br>
+                        ⏰ Время отправки: ${new Date(result.result.date * 1000).toLocaleString('uk-UA')}<br>
+                        <br>
+                        🎉 <strong>Telegram бот работает корректно!</strong><br>
+                        Теперь вы можете использовать форму на основном сайте.
+                    `, 'success');
+                } else {
+                    let errorMsg = `❌ <strong>ОШИБКА API:</strong><br>`;
+                    errorMsg += `📊 Код ошибки: ${result.error_code || 'неизвестно'}<br>`;
+                    errorMsg += `📝 Описание: ${result.description || 'нет описания'}<br><br>`;
+                    
+                    if (result.error_code === 400) {
+                        errorMsg += `🔍 <strong>Возможные причины:</strong><br>`;
+                        errorMsg += `• Неправильный Chat ID<br>`;
+                        errorMsg += `• Бот не может отправлять сообщения этому пользователю<br>`;
+                        errorMsg += `• Проверьте, что вы написали боту сообщение первым`;
+                    } else if (result.error_code === 401) {
+                        errorMsg += `🔐 <strong>Проблема авторизации:</strong><br>`;
+                        errorMsg += `• Неправильный Bot Token<br>`;
+                        errorMsg += `• Токен был отозван или изменен`;
+                    } else if (result.error_code === 403) {
+                        errorMsg += `🚫 <strong>Доступ запрещен:</strong><br>`;
+                        errorMsg += `• Бот заблокирован пользователем<br>`;
+                        errorMsg += `• Бот не может инициировать разговор`;
+                    }
+                    
+                    showResult(errorMsg, 'error');
+                }
+            } catch (error) {
+                showResult(`
+                    ❌ <strong>ОШИБКА СЕТИ:</strong><br>
+                    ${error.message}<br><br>
+                    🔍 <strong>Возможные причины:</strong><br>
+                    • Проблемы с интернет-соединением<br>
+                    • Telegram API недоступен<br>
+                    • Блокировка Telegram в вашем регионе<br>
+                    • CORS проблемы (попробуйте через VPN)
+                `, 'error');
+            }
+        }
+
+        // Обработчик формы
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('testName').value.trim();
+            const phone = document.getElementById('testPhone').value.trim();
+            const message = document.getElementById('testMessage').value.trim();
+            
+            if (!name || !phone) {
+                showResult('❌ Пожалуйста, заполните имя и телефон', 'error');
+                return;
+            }
+            
+            testTelegramBot(name, phone, message);
+        });
+
+        // Загружаем информацию о боте при загрузке страницы
+        window.addEventListener('load', async function() {
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_CONFIG.botToken}/getMe`);
+                const result = await response.json();
+                
+                if (result.ok) {
+                    showResult(`
+                        ℹ️ <strong>Информация о боте:</strong><br>
+                        🤖 Имя: ${result.result.first_name}<br>
+                        📛 Username: @${result.result.username}<br>
+                        🆔 ID: ${result.result.id}<br>
+                        ✅ Статус: Активен<br><br>
+                        Готов к тестированию!
+                    `, 'info');
+                } else {
+                    showResult(`❌ Не удалось получить информацию о боте: ${result.description}`, 'error');
+                }
+            } catch (error) {
+                showResult(`⚠️ Не удалось подключиться к Telegram API: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Title Checker - PC-Master</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .title-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #00ff88;
+        }
+        .button {
+            background: #00ff88;
+            color: black;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px 5px;
+        }
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 SEO Title Checker</h1>
+        <p>Проверка нового заголовка сайта PC-Master Хмельницький</p>
+        
+        <div class="title-box">
+            <h3>Current Page Title:</h3>
+            <div id="currentTitle">Loading...</div>
+        </div>
+        
+        <button class="button" onclick="checkMainSite()">Проверить главный сайт</button>
+        <button class="button" onclick="checkGoogleIndex()">Открыть Google Search</button>
+        <button class="button" onclick="checkPageSpeed()">PageSpeed Insights</button>
+        
+        <div class="result">
+            <h3>✅ Что должно быть:</h3>
+            <p><strong>🔧 Комп'ютерний майстер Хмельницький | Ремонт ПК та ноутбуків ⚡ Виїзд на дім ⚡ 097-609-73-10</strong></p>
+        </div>
+        
+        <div class="result">
+            <h3>📊 Проверка индексации в Google:</h3>
+            <p>Для проверки в Google поиске:</p>
+            <ol>
+                <li>Откройте Google.com</li>
+                <li>Введите: <code>site:pcmaster-khmelnytskyi.xyz</code></li>
+                <li>Новый заголовок появится через 1-7 дней</li>
+            </ol>
+        </div>
+
+        <div class="result">
+            <h3>🛠 Дополнительные инструменты:</h3>
+            <ul>
+                <li><a href="https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fpcmaster-khmelnytskyi.xyz" target="_blank" style="color: #00ff88;">PageSpeed Insights</a></li>
+                <li><a href="https://search.google.com/search-console" target="_blank" style="color: #00ff88;">Google Search Console</a></li>
+                <li><a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fpcmaster-khmelnytskyi.xyz" target="_blank" style="color: #00ff88;">HTML Validator</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Display current page title
+        document.getElementById('currentTitle').textContent = document.title;
+        
+        function checkMainSite() {
+            window.open('https://pcmaster-khmelnytskyi.xyz', '_blank');
+        }
+        
+        function checkGoogleIndex() {
+            window.open('https://www.google.com/search?q=site:pcmaster-khmelnytskyi.xyz', '_blank');
+        }
+        
+        function checkPageSpeed() {
+            window.open('https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fpcmaster-khmelnytskyi.xyz', '_blank');
+        }
+
+        // Auto-check main site title
+        function fetchMainSiteTitle() {
+            fetch('https://pcmaster-khmelnytskyi.xyz')
+                .then(response => response.text())
+                .then(html => {
+                    const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+                    if (titleMatch) {
+                        document.getElementById('currentTitle').innerHTML = 
+                            '<strong>Главный сайт:</strong><br>' + titleMatch[1];
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('currentTitle').innerHTML = 
+                        '<span style="color: #ff6b6b;">Ошибка загрузки. Проверьте вручную.</span>';
+                });
+        }
+
+        // Check after page loads
+        setTimeout(fetchMainSiteTitle, 1000);
+    </script>
+</body>
+</html>

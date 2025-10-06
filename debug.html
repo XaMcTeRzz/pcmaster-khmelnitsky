@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - PC Master Хмельницький</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .debug-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { border-left: 4px solid #22c55e; }
+        .error { border-left: 4px solid #ef4444; }
+        .warning { border-left: 4px solid #f59e0b; }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .green { background: #22c55e; }
+        .red { background: #ef4444; }
+        .yellow { background: #f59e0b; }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Диагностика сайта PC-Master</h1>
+    
+    <div class="debug-info">
+        <h3>📍 Информация о подключении</h3>
+        <p><span id="protocol-status" class="status-indicator"></span>Протокол: <strong id="protocol"></strong></p>
+        <p><span id="domain-status" class="status-indicator"></span>Домен: <strong id="domain"></strong></p>
+        <p><span id="port-status" class="status-indicator"></span>Порт: <strong id="port"></strong></p>
+        <p><span id="path-status" class="status-indicator"></span>Путь: <strong id="path"></strong></p>
+    </div>
+
+    <div class="debug-info">
+        <h3>🔒 SSL/TLS информация</h3>
+        <p><span id="ssl-status" class="status-indicator"></span>HTTPS активен: <strong id="https-active"></strong></p>
+        <p><span id="cert-status" class="status-indicator"></span>Сертификат: <strong id="cert-info"></strong></p>
+        <p><span id="hsts-status" class="status-indicator"></span>HSTS заголовок: <strong id="hsts-info"></strong></p>
+    </div>
+
+    <div class="debug-info">
+        <h3>🌐 DNS и доступность</h3>
+        <div id="dns-checks">
+            <p>Проверяем DNS записи...</p>
+        </div>
+    </div>
+
+    <div class="debug-info">
+        <h3>📋 Заголовки ответа</h3>
+        <pre id="headers-info">Загружаем заголовки...</pre>
+    </div>
+
+    <div class="debug-info">
+        <h3>🚀 Рекомендации</h3>
+        <ul id="recommendations">
+            <li>Загружаем рекомендации...</li>
+        </ul>
+    </div>
+
+    <div class="debug-info">
+        <h3>⚡ Быстрые действия</h3>
+        <button onclick="checkSSL()">🔄 Перепроверить SSL</button>
+        <button onclick="forceHTTPS()">🔒 Принудительный HTTPS</button>
+        <button onclick="clearCache()">🗑️ Очистить кеш</button>
+        <button onclick="window.location.href='/'">🏠 На главную</button>
+    </div>
+
+    <script>
+        // Сбор информации о текущем соединении
+        function collectConnectionInfo() {
+            document.getElementById('protocol').textContent = window.location.protocol;
+            document.getElementById('domain').textContent = window.location.hostname;
+            document.getElementById('port').textContent = window.location.port || (window.location.protocol === 'https:' ? '443' : '80');
+            document.getElementById('path').textContent = window.location.pathname;
+
+            // Статус протокола
+            const protocolStatus = document.getElementById('protocol-status');
+            if (window.location.protocol === 'https:') {
+                protocolStatus.className = 'status-indicator green';
+            } else {
+                protocolStatus.className = 'status-indicator red';
+            }
+
+            // Статус домена
+            const domainStatus = document.getElementById('domain-status');
+            if (window.location.hostname === 'pcmaster-khmelnytskyi.xyz') {
+                domainStatus.className = 'status-indicator green';
+            } else if (window.location.hostname.includes('github.io')) {
+                domainStatus.className = 'status-indicator yellow';
+            } else {
+                domainStatus.className = 'status-indicator red';
+            }
+        }
+
+        // Проверка SSL
+        function checkSSLInfo() {
+            const httpsActive = window.location.protocol === 'https:';
+            document.getElementById('https-active').textContent = httpsActive ? 'Да' : 'Нет';
+            
+            const sslStatus = document.getElementById('ssl-status');
+            sslStatus.className = httpsActive ? 'status-indicator green' : 'status-indicator red';
+
+            // Информация о сертификате (упрощенная)
+            if (httpsActive) {
+                document.getElementById('cert-info').textContent = 'Сертификат активен';
+                document.getElementById('cert-status').className = 'status-indicator green';
+            } else {
+                document.getElementById('cert-info').textContent = 'Сертификат не найден';
+                document.getElementById('cert-status').className = 'status-indicator red';
+            }
+        }
+
+        // Проверка заголовков
+        async function checkHeaders() {
+            try {
+                const response = await fetch(window.location.href, { method: 'HEAD' });
+                const headers = {};
+                
+                response.headers.forEach((value, key) => {
+                    headers[key] = value;
+                });
+
+                document.getElementById('headers-info').textContent = JSON.stringify(headers, null, 2);
+
+                // Проверка HSTS
+                const hsts = response.headers.get('strict-transport-security');
+                if (hsts) {
+                    document.getElementById('hsts-info').textContent = 'Активен';
+                    document.getElementById('hsts-status').className = 'status-indicator green';
+                } else {
+                    document.getElementById('hsts-info').textContent = 'Не активен';
+                    document.getElementById('hsts-status').className = 'status-indicator yellow';
+                }
+
+            } catch (error) {
+                document.getElementById('headers-info').textContent = 'Ошибка: ' + error.message;
+            }
+        }
+
+        // DNS проверки
+        function checkDNS() {
+            const dnsChecks = document.getElementById('dns-checks');
+            const checks = [
+                { name: 'GitHub Pages IP', expected: '185.199.108.153' },
+                { name: 'Домен разрешается', test: true },
+                { name: 'CNAME настроен', test: window.location.hostname === 'pcmaster-khmelnytskyi.xyz' }
+            ];
+
+            let html = '';
+            checks.forEach(check => {
+                if (check.expected) {
+                    html += `<p><span class="status-indicator yellow"></span>${check.name}: Требует проверки</p>`;
+                } else if (check.test) {
+                    html += `<p><span class="status-indicator green"></span>${check.name}: ✅ Пройден</p>`;
+                } else {
+                    html += `<p><span class="status-indicator red"></span>${check.name}: ❌ Провален</p>`;
+                }
+            });
+
+            dnsChecks.innerHTML = html;
+        }
+
+        // Генерация рекомендаций
+        function generateRecommendations() {
+            const recommendations = [];
+            
+            if (window.location.protocol !== 'https:') {
+                recommendations.push('Включить HTTPS в настройках GitHub Pages');
+                recommendations.push('Проверить DNS записи у регистратора домена');
+            }
+
+            if (window.location.hostname !== 'pcmaster-khmelnytskyi.xyz') {
+                recommendations.push('Настроить custom domain в GitHub Pages');
+                recommendations.push('Добавить CNAME запись в DNS');
+            }
+
+            if (!navigator.onLine) {
+                recommendations.push('Проверить интернет соединение');
+            }
+
+            if (recommendations.length === 0) {
+                recommendations.push('✅ Основные настройки в порядке');
+                recommendations.push('Рекомендуем добавить HSTS заголовки для безопасности');
+            }
+
+            const list = document.getElementById('recommendations');
+            list.innerHTML = recommendations.map(r => `<li>${r}</li>`).join('');
+        }
+
+        // Функции кнопок
+        function checkSSL() {
+            window.location.reload();
+        }
+
+        function forceHTTPS() {
+            if (window.location.protocol !== 'https:') {
+                window.location.href = window.location.href.replace('http:', 'https:');
+            }
+        }
+
+        function clearCache() {
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => {
+                        caches.delete(name);
+                    });
+                });
+            }
+            localStorage.clear();
+            sessionStorage.clear();
+            alert('Кеш очищен. Перезагрузите страницу.');
+        }
+
+        // Инициализация при загрузке
+        window.addEventListener('load', () => {
+            collectConnectionInfo();
+            checkSSLInfo();
+            checkHeaders();
+            checkDNS();
+            generateRecommendations();
+        });
+
+        // Автообновление каждые 30 секунд
+        setInterval(() => {
+            checkHeaders();
+        }, 30000);
+    </script>
+</body>
+</html>

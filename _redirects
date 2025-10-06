@@ -1,0 +1,14 @@
+# Force HTTPS and www removal
+https://www.pcmaster-khmelnytskyi.xyz/* https://pcmaster-khmelnytskyi.xyz/:splat 301!
+http://pcmaster-khmelnytskyi.xyz/* https://pcmaster-khmelnytskyi.xyz/:splat 301!
+http://www.pcmaster-khmelnytskyi.xyz/* https://pcmaster-khmelnytskyi.xyz/:splat 301!
+
+# SEO-friendly redirects for sections
+/services /#services 301
+/contact /#contact 301  
+/about /#about 301
+/услуги /#services 301
+/контакты /#contact 301
+
+# Handle missing files gracefully - must be last
+/* /index.html 200

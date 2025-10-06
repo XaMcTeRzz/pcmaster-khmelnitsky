@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Получение Chat ID для Telegram бота</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .step {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+        }
+        .step h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+        .result {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+        button {
+            background: #2196f3;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #1976d2;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            color: #e83e8c;
+        }
+        .chat-id-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+            text-align: center;
+            padding: 20px;
+            background: #d4edda;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .instruction {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Получение Chat ID для PC-Master бота</h1>
+        
+        <div class="step">
+            <h3>📱 Шаг 1: Активируйте бота</h3>
+            <p><strong>Важно!</strong> Сначала напишите боту в Telegram:</p>
+            <ol>
+                <li>Найдите бота в Telegram (если еще не нашли)</li>
+                <li>Нажмите кнопку <strong>"START"</strong></li>
+                <li>Отправьте боту любое сообщение, например: <code>Привет</code></li>
+            </ol>
+            <div class="instruction">
+                ⚠️ <strong>Без этого шага бот не сможет отправлять вам сообщения!</strong>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>🔍 Шаг 2: Получите Chat ID</h3>
+            <p>После того как написали боту, нажмите кнопку ниже:</p>
+            <button onclick="getChatId()">🔎 Получить Chat ID</button>
+            <button onclick="checkBot()">🤖 Проверить статус бота</button>
+        </div>
+
+        <div id="result" class="result" style="display: none;"></div>
+
+        <div class="step">
+            <h3>⚙️ Шаг 3: Обновите код</h3>
+            <p>После получения Chat ID обновите файл <code>js/script.js</code>:</p>
+            <div id="codeUpdate" style="display: none;">
+                <pre id="codeExample"></pre>
+                <button onclick="updateCode()">✅ Обновить код автоматически</button>
+            </div>
+        </div>
+
+        <div class="step">
+            <h3>🧪 Шаг 4: Тестирование</h3>
+            <p>После обновления кода протестируйте бота:</p>
+            <button onclick="testBot()" id="testButton" disabled>🚀 Отправить тестовое сообщение</button>
+        </div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = '8256319983:AAGZKs_9Nqw2Kuep3HauUsSWpps5y7iGAcs';
+        let currentChatId = null;
+
+        function showResult(message, type = 'info') {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = `result ${type}`;
+            resultDiv.innerHTML = message;
+        }
+
+        async function checkBot() {
+            try {
+                showResult('🔄 Проверяем статус бота...', 'info');
+                
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getMe`);
+                const result = await response.json();
+                
+                if (result.ok) {
+                    showResult(`
+                        ✅ <strong>Бот активен!</strong><br>
+                        🤖 <strong>Имя:</strong> ${result.result.first_name}<br>
+                        📛 <strong>Username:</strong> @${result.result.username}<br>
+                        🆔 <strong>ID:</strong> ${result.result.id}<br>
+                        <br>
+                        Теперь можно получать Chat ID!
+                    `, 'success');
+                } else {
+                    showResult(`❌ <strong>Ошибка бота:</strong> ${result.description}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ <strong>Ошибка соединения:</strong> ${error.message}`, 'error');
+            }
+        }
+
+        async function getChatId() {
+            try {
+                showResult('🔄 Получаем Chat ID...', 'info');
+                
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates`);
+                const result = await response.json();
+                
+                if (result.ok && result.result.length > 0) {
+                    // Ищем последнее сообщение
+                    const lastMessage = result.result[result.result.length - 1];
+                    const chatId = lastMessage.message.chat.id;
+                    const firstName = lastMessage.message.chat.first_name || 'Пользователь';
+                    const messageText = lastMessage.message.text || 'Без текста';
+                    const messageDate = new Date(lastMessage.message.date * 1000).toLocaleString('ru-RU');
+                    
+                    currentChatId = chatId;
+                    
+                    showResult(`
+                        ✅ <strong>Chat ID найден!</strong><br><br>
+                        <div class="chat-id-display">Chat ID: ${chatId}</div>
+                        👤 <strong>Пользователь:</strong> ${firstName}<br>
+                        💬 <strong>Последнее сообщение:</strong> "${messageText}"<br>
+                        ⏰ <strong>Время:</strong> ${messageDate}<br>
+                        <br>
+                        <strong>Этот Chat ID будет использован для обновления кода!</strong>
+                    `, 'success');
+                    
+                    // Показываем код для обновления
+                    document.getElementById('codeUpdate').style.display = 'block';
+                    document.getElementById('codeExample').textContent = `
+const TELEGRAM_CONFIG = {
+    botToken: '${BOT_TOKEN}',
+    chatId: '${chatId}'
+};`;
+                    
+                    // Активируем кнопку тестирования
+                    document.getElementById('testButton').disabled = false;
+                    
+                } else {
+                    showResult(`
+                        ❌ <strong>Chat ID не найден!</strong><br><br>
+                        📱 <strong>Убедитесь что вы:</strong><br>
+                        • Нашли бота в Telegram<br>
+                        • Нажали кнопку "START"<br>
+                        • Отправили боту хотя бы одно сообщение<br>
+                        <br>
+                        После этого повторите попытку.
+                    `, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ <strong>Ошибка получения Chat ID:</strong> ${error.message}`, 'error');
+            }
+        }
+
+        async function updateCode() {
+            if (!currentChatId) {
+                showResult('❌ Сначала получите Chat ID!', 'error');
+                return;
+            }
+
+            try {
+                showResult('🔄 Обновляем код...', 'info');
+                
+                // Имитируем обновление кода (в реальности нужно обновить через API или файловую систему)
+                setTimeout(() => {
+                    showResult(`
+                        ✅ <strong>Код готов к обновлению!</strong><br><br>
+                        📝 <strong>Скопируйте этот код в файл js/script.js:</strong><br>
+                        <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0;">
+const TELEGRAM_CONFIG = {
+    botToken: '${BOT_TOKEN}',
+    chatId: '${currentChatId}'
+};</pre>
+                        
+                        <strong>Замените старую конфигурацию на эту!</strong>
+                    `, 'success');
+                }, 1000);
+                
+            } catch (error) {
+                showResult(`❌ <strong>Ошибка обновления:</strong> ${error.message}`, 'error');
+            }
+        }
+
+        async function testBot() {
+            if (!currentChatId) {
+                showResult('❌ Сначала получите Chat ID!', 'error');
+                return;
+            }
+
+            try {
+                showResult('🔄 Отправляем тестовое сообщение...', 'info');
+                
+                const testMessage = `
+🧪 <b>ТЕСТ БОТА PC-MASTER</b> 🧪
+
+✅ Chat ID найден и работает!
+🤖 Бот: PC-Master Хмельницький
+📱 Chat ID: ${currentChatId}
+⏰ Время теста: ${new Date().toLocaleString('ru-RU')}
+
+🎉 <b>Бот настроен правильно!</b>
+Теперь форма на сайте будет работать корректно.
+`;
+
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: currentChatId,
+                        text: testMessage,
+                        parse_mode: 'HTML'
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.ok) {
+                    showResult(`
+                        ✅ <strong>ТЕСТ УСПЕШЕН!</strong><br><br>
+                        📱 Тестовое сообщение отправлено в Telegram!<br>
+                        📋 Message ID: ${result.result.message_id}<br>
+                        ⏰ Время: ${new Date().toLocaleString('ru-RU')}<br>
+                        <br>
+                        🎉 <strong>Бот полностью готов к работе!</strong><br>
+                        Теперь обновите код и форма заработает.
+                    `, 'success');
+                } else {
+                    showResult(`❌ <strong>Ошибка отправки:</strong> ${result.description}`, 'error');
+                }
+                
+            } catch (error) {
+                showResult(`❌ <strong>Ошибка теста:</strong> ${error.message}`, 'error');
+            }
+        }
+
+        // Автоматическая проверка при загрузке
+        window.addEventListener('load', checkBot);
+    </script>
+</body>
+</html>

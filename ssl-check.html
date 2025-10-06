@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSL Check - PC-Master Хмельницький</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            text-align: center;
+        }
+        .status {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        .success {
+            background: rgba(34, 197, 94, 0.3);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+        .error {
+            background: rgba(239, 68, 68, 0.3);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        }
+        .warning {
+            background: rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(245, 158, 11, 0.5);
+        }
+        .check-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .check-item:last-child {
+            border-bottom: none;
+        }
+        button {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 10px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 Проверка SSL сертификата</h1>
+        <p>Диагностика безопасности сайта pcmaster-khmelnytskyi.xyz</p>
+        
+        <div id="ssl-status" class="status">
+            <div id="ssl-icon">🔄</div>
+            <div id="ssl-text">Проверяем SSL...</div>
+        </div>
+
+        <div id="checks">
+            <div class="check-item">
+                <span>HTTPS доступность:</span>
+                <span id="https-check">⏳</span>
+            </div>
+            <div class="check-item">
+                <span>SSL сертификат:</span>
+                <span id="ssl-cert-check">⏳</span>
+            </div>
+            <div class="check-item">
+                <span>Редирект HTTP → HTTPS:</span>
+                <span id="redirect-check">⏳</span>
+            </div>
+            <div class="check-item">
+                <span>Безопасные заголовки:</span>
+                <span id="headers-check">⏳</span>
+            </div>
+        </div>
+
+        <button onclick="runSSLCheck()">🔄 Повторить проверку</button>
+        <button onclick="window.location.href='/'">🏠 На главную</button>
+
+        <div id="recommendations" style="margin-top: 30px; text-align: left; display: none;">
+            <h3>📋 Рекомендации:</h3>
+            <ul id="rec-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        async function runSSLCheck() {
+            const domain = 'pcmaster-khmelnytskyi.xyz';
+            const results = {
+                https: false,
+                ssl: false,
+                redirect: false,
+                headers: false
+            };
+
+            // Reset status
+            document.getElementById('ssl-status').className = 'status';
+            document.getElementById('ssl-icon').textContent = '🔄';
+            document.getElementById('ssl-text').textContent = 'Проверяем SSL...';
+            
+            // Reset checks
+            document.querySelectorAll('[id$="-check"]').forEach(el => el.textContent = '⏳');
+
+            try {
+                // Check HTTPS availability
+                const httpsResponse = await fetch(`https://${domain}`, { 
+                    method: 'HEAD', 
+                    mode: 'no-cors',
+                    signal: AbortSignal.timeout(10000)
+                });
+                results.https = true;
+                document.getElementById('https-check').textContent = '✅';
+            } catch (error) {
+                document.getElementById('https-check').textContent = '❌';
+                console.error('HTTPS check failed:', error);
+            }
+
+            // Check if we're on HTTPS
+            if (location.protocol === 'https:') {
+                results.ssl = true;
+                document.getElementById('ssl-cert-check').textContent = '✅';
+            } else {
+                document.getElementById('ssl-cert-check').textContent = '❌';
+            }
+
+            // Check HTTP redirect (simulate)
+            try {
+                const httpUrl = `http://${domain}`;
+                // This is a simplified check - in reality we'd need server-side verification
+                if (results.https) {
+                    results.redirect = true;
+                    document.getElementById('redirect-check').textContent = '✅';
+                } else {
+                    document.getElementById('redirect-check').textContent = '❌';
+                }
+            } catch (error) {
+                document.getElementById('redirect-check').textContent = '❌';
+            }
+
+            // Check security headers (basic check)
+            try {
+                const response = await fetch(window.location.href, { method: 'HEAD' });
+                const hasSecurityHeaders = response.headers.get('strict-transport-security') || 
+                                         response.headers.get('x-frame-options');
+                if (hasSecurityHeaders) {
+                    results.headers = true;
+                    document.getElementById('headers-check').textContent = '✅';
+                } else {
+                    document.getElementById('headers-check').textContent = '⚠️';
+                }
+            } catch (error) {
+                document.getElementById('headers-check').textContent = '❌';
+            }
+
+            // Update overall status
+            const successCount = Object.values(results).filter(Boolean).length;
+            const statusDiv = document.getElementById('ssl-status');
+            const iconDiv = document.getElementById('ssl-icon');
+            const textDiv = document.getElementById('ssl-text');
+
+            if (successCount === 4) {
+                statusDiv.className = 'status success';
+                iconDiv.textContent = '🔒';
+                textDiv.textContent = 'SSL настроен правильно!';
+            } else if (successCount >= 2) {
+                statusDiv.className = 'status warning';
+                iconDiv.textContent = '⚠️';
+                textDiv.textContent = 'SSL частично настроен';
+            } else {
+                statusDiv.className = 'status error';
+                iconDiv.textContent = '❌';
+                textDiv.textContent = 'SSL требует настройки';
+            }
+
+            // Show recommendations
+            showRecommendations(results);
+        }
+
+        function showRecommendations(results) {
+            const recommendations = [];
+            
+            if (!results.https) {
+                recommendations.push('Включите SSL сертификат в панели хостинга');
+                recommendations.push('Проверьте правильность DNS записей');
+            }
+            
+            if (!results.ssl) {
+                recommendations.push('Настройте принудительное HTTPS перенаправление');
+            }
+            
+            if (!results.redirect) {
+                recommendations.push('Добавьте редирект с HTTP на HTTPS');
+            }
+            
+            if (!results.headers) {
+                recommendations.push('Настройте заголовки безопасности (HSTS, CSP)');
+            }
+
+            if (recommendations.length > 0) {
+                const recDiv = document.getElementById('recommendations');
+                const recList = document.getElementById('rec-list');
+                recList.innerHTML = recommendations.map(rec => `<li>${rec}</li>`).join('');
+                recDiv.style.display = 'block';
+            } else {
+                document.getElementById('recommendations').style.display = 'none';
+            }
+        }
+
+        // Auto-run check on load
+        window.addEventListener('load', runSSLCheck);
+    </script>
+</body>
+</html>

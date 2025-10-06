@@ -1,0 +1,25 @@
+{
+  "name": "pc-master-khmelnitsky",
+  "version": "1.0.0",
+  "description": "PC-Master Хмельницький - система уведомлений",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "netlify dev",
+    "build": "echo 'No build required for static site'"
+  },
+  "dependencies": {
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "keywords": [
+    "pc-repair",
+    "notifications",
+    "web-push",
+    "netlify"
+  ],
+  "author": "PC-Master Хмельницький",
+  "license": "MIT"
+}
